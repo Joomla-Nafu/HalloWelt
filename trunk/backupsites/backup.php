@@ -6,7 +6,7 @@
  * Backup script to backup Joomla! installations - Files and database.
  *
  * @author Nikolai Plath
- * @author created on 1-Apr-2010 -- noJoke =;)
+ * @author created on 1-Apr-2010 -- NoJoke =;)
  * @license GPL
  */
 
