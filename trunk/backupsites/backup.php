@@ -33,7 +33,7 @@ $ret = $backup->run();
 
 if( ! $ret)
 {
-    //-- Bad things happened...
+    //-- Bad things happened... :(
 }
 
 //-- That's all =;)
