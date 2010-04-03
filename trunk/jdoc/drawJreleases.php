@@ -37,9 +37,11 @@ $ID =( isset($_REQUEST['id'])) ? intval($_REQUEST['id']) : 0;
 </head>
 
 <body>
+<div id="homeLink"><a href="index.php">Home</a></div>
 
-<div id="outer">
-
+<div>
+    <img src="assets/images/joomla_logo_black.jpg" alt="Joomla! Logo"  />
+Releases
 <form action="drawJreleases.php">
     <div>
     Joomla! Version:

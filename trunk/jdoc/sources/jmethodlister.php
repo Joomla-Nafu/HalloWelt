@@ -324,15 +324,12 @@ $path = dirname(__FILE__).DS.'joomla'.DS.$fName;
 if( file_put_contents($path, $re))
 {
     $host  = $_SERVER['HTTP_HOST'];
-    #echo $host.'---';
     $uri   = dirname($_SERVER['PHP_SELF']);
     $uri = str_replace('sources', '', $uri);
     $uri   = rtrim($uri, '/\\');
-    #echo $uri.'***';
-    $extra = 'index.php?mlist_built=1&j_version='.$reqJVER;
+    $extra = 'jdoc.php?mlist_built=1&j_version='.$reqJVER;
 
     $href = "$host$uri/$extra";
-    #echo $href;
     header("Location: http://$href");
 
 }

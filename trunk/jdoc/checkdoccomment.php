@@ -15,7 +15,6 @@
 $CLI =(substr(php_sapi_name(), 0, 3) == 'cli') ? true : false;
 
 error_reporting(E_ALL);
-
 define('DS', DIRECTORY_SEPARATOR);
 
 define('_JEXEC', 1);
@@ -42,19 +41,15 @@ if($CLI)
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <title>Errors in Joomla! framework DocComments</title>
 <link href="/assets/images/jfavicon_t.ico" rel="shortcut icon" type="image/x-icon" />
+<link rel="stylesheet" href="assets/css/default.css" type="text/css" />
 <style type="text/css">
-div.error {
-   background-color: #ffb2b2;
-   padding: 0.2em;
-}
 
-a img {
-   border: 0;
-}
 </style>
 </head>
 <body>
+<div id="homeLink" style="margin-bottom: 1em;"><a href="index.php">Home</a></div>
 <div>
+
 <h2>This checks the Joomla! framework classes for correct <big><tt>@param</tt></big><small>eter</small>
 declaration in /** DocBlocs */</h2>
 <div style="border: 1px dashed red; padding: 0.5em;">Parameters are
@@ -89,7 +84,8 @@ if($CLI)
 {
     $fileName = 'doccommenterrors.html';
     $output = ob_get_clean();
-$path = dirname(__FILE__);
+    $path = dirname(__FILE__);
+
     if(JFile::write($path.DS.$fileName, $output))
     {
         echo 'File has been written to '.NL.$path.DS.$fileName.NL;
@@ -160,8 +156,9 @@ class JInspector
 
     public function checkDocComments()
     {
+        $info = self::getSvnInfo();
         echo $this->JVersion->getLongVersion().BR;
-        echo 'CHANGELOG: <tt>@version $Id: '.$this->getVersionFromCHANGELOG().'</tt>'.BR;
+        echo '<tt>@version $Id: '.$info->Revision.' '.$info->{"Letztes Änderungsdatum"}.'</tt>'.BR;
         echo HR.'Starting...';
 
         $this->baseClasses['JObject'] = 'base/object.php';
@@ -507,6 +504,35 @@ class JInspector
 
         asort($arr);
         return $arr;
+    }//function
+
+    private static function getSvnInfo()
+    {
+        $info = new stdClass();
+
+    	$fileName = dirname(__FILE__).DS.'svn_info';
+
+    	if( ! file_exists(($fileName)))
+    	{
+    	    return $info;
+
+    	}
+
+    	$lines = file($fileName);
+
+    	foreach($lines as $line)
+    	{
+    	    if( ! trim($line)) continue;
+
+    		$l = explode(':', $line);
+    		$key = $l[0];
+    		$value = trim(substr($line, strlen($key) + 1));
+
+    		$info->$key = $value;
+
+    	}//foreach
+
+    	return $info;
     }//function
 
     /**

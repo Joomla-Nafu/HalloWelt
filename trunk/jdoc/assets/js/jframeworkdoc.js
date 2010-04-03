@@ -34,7 +34,7 @@ function load_file(path, file, d)
 	
 	
 	var myHTMLRequest = new Request.HTML({
-		url: 'index.php'
+		url: 'jdoc.php'
 		, update: $('jdocDisplay')
 		, onRequest: function() { $('jdocDisplay').innerHTML = '<img src="" id="ajax-loader" /><br />Loading....'; $('ajax-loader').src = loaderPic.src;} 
 		, onSuccess: function() {
@@ -43,7 +43,7 @@ function load_file(path, file, d)
 					Tix = new Tips('.hasTip',{ hideDelay: 400, fixed: true });
 				}
 			}
-		}).post("index.php?"+postData);
+		}).post("jdoc.php?"+postData);
 }//function
 
 var openedDiv = '';
