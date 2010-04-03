@@ -40,9 +40,9 @@ define('DS', DIRECTORY_SEPARATOR);
     </div>
     <div style="float: left; padding: 0.5em; border: 1px solid gray;">
     <ul>
-    	<li><a href="jdoc.php">Joomla! framework ducomentor</a></li>
-    	<li><a href="doccommenterrors.html">Joomla! trunk DocComment ERRORs</a></li>
+    	<li><a href="jdoc.php">Joomla! framework documentor</a></li>
     	<li><a href="drawJreleases.php">Joomla! Releases</a></li>
+    	<li><a href="doccommenterrors.html">Joomla! trunk DocComment ERRORs</a></li>
     </ul>
     </div>
 </div>
