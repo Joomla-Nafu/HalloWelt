@@ -213,8 +213,9 @@ class Backup extends MInterface
             echo 'Starting MySqlDump...';
             $cmd = 'mysqldump';
             $cmd .=($this->verbose) ? ' -v' : '';
-            $cmd .= ' -u '.$JConfig->user;
-            $cmd .=($JConfig->password) ? ' -p '.$JConfig->password : '';
+            $cmd .= ' -h'.$JConfig->host;
+            $cmd .= ' -u'.$JConfig->user;
+            $cmd .=($JConfig->password) ? ' -p'.$JConfig->password : '';
             $cmd .= ' '.$JConfig->db.' 2>&1 >';
             $cmd .= ' '.$this->tmpDir.DS.'backup.sql';
             $ret =($this->testing) ? 'TEST: '.$cmd : shell_exec($cmd);
