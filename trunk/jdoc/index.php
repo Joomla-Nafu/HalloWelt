@@ -32,30 +32,51 @@ define('DS', DIRECTORY_SEPARATOR);
 </head>
 
 <body>
-
 <div>
     <img src="assets/images/joomla_logo_black.jpg" alt="Joomla! Logo"  />
     <div style="text-align: center;">
     	<img src="assets/images/welcome1.png" alt="Welcome my fellow documentors" />
     </div>
-    <div style="float: left; padding: 0.5em; border: 1px solid gray;">
+</div>
+
+<?php if(file_exists($base.DS.'svn_info')) : ?>
+<pre class="svn_info" style="float: right;">
+<?php
+$fileContents = file($base.DS.'svn_info');
+foreach($fileContents as $line)
+{
+    if( ! trim($line)) continue;
+	if(strpos($line, 'Pfad') === 0) continue;
+	if(strpos($line, 'UUID') === 0) continue;
+	if(strpos($line, 'Knotentyp') === 0) continue;
+	if(strpos($line, 'Plan') === 0) continue;
+
+	echo $line;
+}//foreach
+?>
+</pre>
+<?php endif; ?>
+
+<div style="float: left; padding: 0.5em; border: 1px solid gray;">
     <ul>
     	<li><a href="jdoc.php">Joomla! framework documentor</a></li>
     	<li><a href="drawJreleases.php">Joomla! Releases</a></li>
     	<li><a href="doccommenterrors.html">Joomla! trunk DocComment ERRORs</a></li>
     </ul>
-    </div>
 </div>
+
 <div style="clear: both;"></div>
 
-<?php if(file_exists($base.DS.'svn_info')) : ?>
-<pre class="svn_info">
-<?php
-$fileContents = implode("", file($base.DS.'svn_info'));
-echo $fileContents;
-?>
-</pre>
-<?php endif; ?>
+<div class="easy_footer">The code is released und <a href="http://www.gnu.org/licenses/gpl.html">GPL</a> and available from SVN at <a href="http://joomlacode.org/svn/nafuwiki/trunk/jdoc">Joomlacode</a> (anonymous with no password)</div>
+
+<div style="float: right;">
+    <a href="http://validator.w3.org/check?uri=referer">
+    	<img src="http://www.w3.org/Icons/valid-xhtml11" alt="Valid XHTML 1.1" height="31" width="88" />
+    </a>
+    <a href="http://jigsaw.w3.org/css-validator/check/referer">
+        <img style="border:0;width:88px;height:31px" src="http://jigsaw.w3.org/css-validator/images/vcss-blue" alt="CSS ist valide!" />
+    </a>
+</div>
 
 </body>
 
