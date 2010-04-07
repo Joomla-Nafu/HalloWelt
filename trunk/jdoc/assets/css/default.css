@@ -17,6 +17,18 @@ body {
    float: right;
 }
 
+#permaLink {
+   color: black;
+   text-decoration: none;
+   padding: 0.1em;
+   margin: 0.7em;
+   border: 1px solid blue;
+}
+
+#permaLink:hover {
+   background-color: #ffc;
+}
+
 #homeLink a {
    display: block;
    border: 1px dotted gray;

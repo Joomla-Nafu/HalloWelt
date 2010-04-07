@@ -67,14 +67,13 @@ $JInspector->checkDocComments();
 
 ?>
 <hr />
+<h2 style="color: green;">Finished <tt>=;)</tt></h2>
 <p style="float: right;"><a
 	href="http://validator.w3.org/check?uri=referer"><img
-	src="http://www.w3.org/Icons/valid-xhtml10"
-	alt="Valid XHTML 1.0 Strict" height="31" width="88" /></a></p>
-<h2 style="color: green;">Finished <tt>=;)</tt></h2>
+	src="http://www.w3.org/Icons/valid-xhtml11-blue"
+	alt="Valid XHTML 1.1" height="31" width="88" /></a></p>
 <p>For more great scripts visit <a href="http://easy-joomla.org">Easy-Joomla.org</a></p>
 <em>Generated on <tt><?php echo date('Y-M-d H:i:s'); ?></tt></em>
-<hr />
 </div>
 </body>
 </html>
