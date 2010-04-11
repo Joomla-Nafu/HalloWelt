@@ -38,6 +38,7 @@ $ID =( isset($_REQUEST['id'])) ? intval($_REQUEST['id']) : 0;
 
 <body>
 <div id="homeLink"><a href="index.php">Home</a></div>
+<h3 style="float: right;">Downloads provided by <a href="httzp://joomlacode.org">JoomlaCode.org</a></h3>
 
 <div>
     <img src="assets/images/joomla_logo_black.jpg" alt="Joomla! Logo"  />
@@ -48,7 +49,7 @@ Releases
     <select name="id" onchange="form.submit();">
         <option value="0">Select...</option>
         <?php
-        foreach ($display->getReleases() as $idName => $idId)
+        foreach($display->getReleases() as $idName => $idId)
         {
             $selected =( $idId == $ID ) ? ' selected="selected"' : '';
         	echo '<option value="'.$idId.'"'.$selected.'>'.$idName.'</option>';
@@ -59,6 +60,7 @@ Releases
     </div>
 </form>
 
+<div style="background-color: #eee;">
 <?php
 if( ! $ID )
 {
@@ -68,10 +70,23 @@ else
 {
     $display->drawRelease($ID);
 }
-
-
 ?>
 </div>
+</div>
+
+<div class="easy_footer"><a class="toplink" href="#">Top</a>
+<div class="valid_xhtml"><a
+	href="http://validator.w3.org/check?uri=referer" class="external">XHTML
+1.1</a><br />
+<a href="http://jigsaw.w3.org/css-validator/check/referer"
+	class="external">CSS 2.1</a></div>
+Developed 2009 by <img src="assets/images/easy-joomla-favicon.ico"
+	alt="Easy-Joomla.org" /> <a href="http://easy-joomla.org"
+	class="external">Easy-Joomla</a> <br />
+&bull;&bull;&bull; <em>Have FUN <tt>=;)</tt></em>
+<div style="clear: both;"></div>
+</div>
+
 </body>
 
 </html>
@@ -113,7 +128,7 @@ class EasyProjectDisplay
 
     public function drawRelease($ID)
     {
-        if ( ! $ID = intval($ID))
+        if( ! $ID = intval($ID))
         {
             return '';
         }
@@ -168,6 +183,39 @@ class EasyProjectDisplay
         }
 
         arsort($updateLinks[$version]);
+
+        echo '<hr /><h2>HTML</h2>';
+
+        $html = '';
+        $html .= '<ul>'.NL;
+
+        $html .= '<li class="version">Joomla! '.$version;
+        foreach ($versionLinks[$version] as $vExt => $vLink)
+        {
+            $html .= NL.'&nbsp;&bull;&nbsp;<a href="'.$vLink.'">'.$vExt.'</a>';
+        }//foreach
+        $html .= '</li>';
+
+        $html .= NL.'</ul>';
+        $html .= NL.'<h3>Updates</h3>';
+        $html .= NL.'<ul>';
+
+        foreach ($updateLinks[$version] as $uVersion=>$uLinks)
+        {
+            $html .= NL.'<li class="version">Update '.$uVersion.' => '.$version;
+
+            foreach ($uLinks as $uExt => $uLink)
+            {
+                $html .= NL.'&nbsp;&bull;&nbsp;<a href="'.$uLink.'">'.$uExt.'</a>';
+            }//foreach
+
+            $html .= '</li>';
+        }//foreach
+
+        $html .= NL.'</ul>';
+
+        echo $html;
+        echo '<textarea style="width: 100%; height: 100px;" cols="1000" rows="1000">'.htmlentities($html).'</textarea>';
 
         echo '<hr /><h2>Wiki syntax</h2>';
         echo '<textarea style="width: 100%; height: 100px;" cols="1000" rows="1000">';

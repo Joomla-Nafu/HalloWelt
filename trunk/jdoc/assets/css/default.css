@@ -258,3 +258,9 @@ display: block;
 li a:hover {
 background-color: #ffc;
 }
+
+li.version a {
+   display: inline;
+   color: blue;
+   font-weight: bold;
+   }

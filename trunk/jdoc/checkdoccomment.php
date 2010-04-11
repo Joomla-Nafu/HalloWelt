@@ -168,6 +168,7 @@ class JInspector
         if($this->JVersion->RELEASE == '1.6')
         {
             $this->baseClasses['JModel'] = 'application/component/model.php';
+            $this->baseClasses['JModelForm'] = 'application/component/modelform.php';
             $this->baseClasses['JTable'] = 'database/table.php';
             $this->baseClasses['JTableNested'] = 'database/tablenested.php';
             $this->baseClasses['JFormField'] = 'form/formfield.php';

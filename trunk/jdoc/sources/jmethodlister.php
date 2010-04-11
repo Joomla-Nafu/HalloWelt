@@ -64,13 +64,14 @@ else
 {
     //-- J! 1.6
     tryInc('joomla'.DS.'application'.DS.'component'.DS.'model.php');
+    tryInc('joomla'.DS.'application'.DS.'component'.DS.'modelform.php');
     tryInc('joomla'.DS.'database'.DS.'table.php');
     tryInc('joomla'.DS.'database'.DS.'tablenested.php');
     tryInc('joomla'.DS.'form'.DS.'formfield.php');
     tryInc('joomla'.DS.'form'.DS.'fields'.DS.'text.php');
     tryInc('joomla'.DS.'form'.DS.'fields'.DS.'list.php');
-     tryInc('joomla'.DS.'form'.DS.'fields'.DS.'mediamanager.php');
-  tryInc('joomla'.DS.'base'.DS.'adapterinstance.php');
+    tryInc('joomla'.DS.'form'.DS.'fields'.DS.'mediamanager.php');
+    tryInc('joomla'.DS.'base'.DS.'adapterinstance.php');
     tryInc('joomla'.DS.'base'.DS.'node.php');
     tryInc('joomla'.DS.'updater'.DS.'updateadapter.php');
 
@@ -172,8 +173,8 @@ for ($i = 0; $i < count($folders); $i++)
                 //			    }
                 //			    else
                 //			    {
-                    //			        $extenders[$parent->name][] = $c;
-                    //			    }
+                //			        $extenders[$parent->name][] = $c;
+                //			    }
             }
 
             $cl->comment = $class->getDocComment();
@@ -240,50 +241,50 @@ $ver = new JVersion();
 $re = '';
 switch ($action)
 {
-	case 'methods':
+    case 'methods':
 
-	    $mStrings = array();
-foreach( $classes as $c)
-{
+        $mStrings = array();
+        foreach( $classes as $c)
+        {
 
-foreach ($c->methods as $m)
-{
-    $mStrings[] = $m->class.'#'.$m->name.'#'.$m->file.'#'.$m->start.'#'.$m->end;
-}
-}
+            foreach ($c->methods as $m)
+            {
+                $mStrings[] = $m->class.'#'.$m->name.'#'.$m->file.'#'.$m->start.'#'.$m->end;
+            }
+        }
 
-$re = implode(NL, $mStrings);
+        $re = implode(NL, $mStrings);
 
 
-//        $classList = BR.', [\''.implode('\'], [\'', $superClasses).'\']';
-//        $classList .= BR.']';
-//        $methodList = '';
-//        foreach ($JMethods as $cName => $cMethods)
-//        {
-//
-//          $methodList .= ", '$cName' : [".BR;
-//          $methodList .= "['".implode("()'], ['", array_keys($cMethods))."']".BR;
-//          $methodList .= ']'.BR;
-//        }
-//        echo $classList.BR;
-//        echo $methodList;
-//        echo ']'.BR;
-//        echo '<hr />Have FUN <tt>=;)</tt><hr />';
-//        #echo '<pre>';
-//        $mStrings = array();
-//
-//        foreach ($JMethods as $m)
-//        {
-//            $mStrings[] = $m->class.'#'.$m->name.'#'.$m->file.'#'.$m->start.'#'.$m->end;
-//        }
-//
-//        $s = implode(NL, $mStrings);
-//        $version = new JVersion();
-//        $v = str_replace('.', '_', $version->getShortVersion());
+        //        $classList = BR.', [\''.implode('\'], [\'', $superClasses).'\']';
+        //        $classList .= BR.']';
+        //        $methodList = '';
+        //        foreach ($JMethods as $cName => $cMethods)
+        //        {
+        //
+        //          $methodList .= ", '$cName' : [".BR;
+        //          $methodList .= "['".implode("()'], ['", array_keys($cMethods))."']".BR;
+        //          $methodList .= ']'.BR;
+        //        }
+        //        echo $classList.BR;
+        //        echo $methodList;
+        //        echo ']'.BR;
+        //        echo '<hr />Have FUN <tt>=;)</tt><hr />';
+        //        #echo '<pre>';
+        //        $mStrings = array();
+        //
+        //        foreach ($JMethods as $m)
+        //        {
+        //            $mStrings[] = $m->class.'#'.$m->name.'#'.$m->file.'#'.$m->start.'#'.$m->end;
+        //        }
+        //
+        //        $s = implode(NL, $mStrings);
+        //        $version = new JVersion();
+        //        $v = str_replace('.', '_', $version->getShortVersion());
         $fName = 'jmethodlist_'.str_replace('.', '_', $reqJVER).'.txt';
-	break;
+        break;
 
-	default:
+    default:
         $re .= '<?php'.NL;
         $re .= '/* Class list for Joomla! '.$ver->getShortVersion().' generated on '.date('Y-M-d').' */'.NL;
         $re .= 'function getJoomlaClasses() {'.NL;
@@ -316,7 +317,7 @@ $re = implode(NL, $mStrings);
         $re .= '}'.NL;
 
         $fName = 'jclasslist_'.str_replace('.', '_', $reqJVER).'.php';
-    break;
+        break;
 }//switch
 
 $path = dirname(__FILE__).DS.'joomla'.DS.$fName;
@@ -391,13 +392,13 @@ else
 function tryInc($path)
 {
     if( ! file_exists(JPATH_LIBRARIES.DS.$path))
- {
-echo(DEBUG==2)?'<hr />FILE not found: '.$path.BR:'';
- return false; }
+    {
+        echo(DEBUG==2)?'<hr />FILE not found: '.$path.BR:'';
+        return false; }
 
-    include_once (JPATH_LIBRARIES.DS.$path);
+        include_once (JPATH_LIBRARIES.DS.$path);
 
-    return true;
+        return true;
 }
 function jimport()
 {
