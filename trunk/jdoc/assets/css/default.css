@@ -6,7 +6,6 @@
  * @author      Nikolai Plath (elkuku) {@link http://www.nik-it.de NiK-IT.de}
  * @author      Created on 24.09.2008
  */
- 
 body {
    border: 3px dashed gray;
    margin: 0.1em;
@@ -34,11 +33,11 @@ body {
    border: 1px dotted gray;
    padding: 0.3em;
    text-decoration: none;
-color: black;
+   color: black;
 }
 
 #homeLink a:hover {
-   background-color:#ffc;
+   background-color: #ffc;
 }
 
 div.error {
@@ -49,6 +48,7 @@ div.error {
 a img {
    border: 0;
 }
+
 div#outer {
    border: 2px dashed gray;
    padding: 0.5em;
@@ -180,6 +180,14 @@ a.toplink:hover {
    padding-bottom: 5px;
 }
 
+.img2 {
+   background-repeat: no-repeat;
+   background-position: 4px 3px ! important;
+   padding-left: 27px;
+   padding-right: 20px;
+   margin-left: 5px;
+}
+
 a.external {
    background-image: url(../images/external_link.gif);
    background-position: right;
@@ -250,17 +258,34 @@ ul {
 }
 
 li a {
-text-decoration: none;
-color: black;
-display: block;
+   text-decoration: none;
+   color: black;
+   display: block;
 }
 
 li a:hover {
-background-color: #ffc;
+   background-color: #ffc;
 }
 
 li.version a {
    display: inline;
    color: blue;
    font-weight: bold;
-   }
+}
+
+/* Colors ;) */
+.red {
+   background-color: red;
+}
+
+.green {
+   background-color: green;
+}
+
+.J_1_5 {
+   background-image: url(../images/Compat_icon_1_5.png);
+}
+
+.J_1_6 {
+   background-image: url(../images/Compat_icon_1_6.png);
+}

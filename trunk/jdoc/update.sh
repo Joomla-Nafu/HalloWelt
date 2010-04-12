@@ -5,12 +5,16 @@ PATH_HTDOCS="/srv/www/vhosts/der-beta-server.de/subdomains/jdoc/httpdocs"
 
 PATH_SOURCES=$PATH_HTDOCS"/sources/joomla"
 PATH_LIBS=$PATH_SOURCES"/trunk/libraries"
+PATH_INSTALLSQL=$PATH_SOURCES"/1.6.trunk_install_sql/installation/sql/mysql"
 
 PATH_JCLASS_LIST=$PATH_SOURCES"/jclasslist_trunk.php"
 
 echo "Lib Path: $PATH_LIBS"
 echo "Updating SVN..."
 svn update $PATH_LIBS
+
+echo "Updating install sql SVN..."
+svn update $PATH_INSTALLSQL
 
 echo "Write svn_info to $PATH_HTDOCS""/svn_info"
 svn info $PATH_LIBS > $PATH_HTDOCS"/svn_info"

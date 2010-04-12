@@ -61,6 +61,7 @@ foreach($fileContents as $line)
     <ul>
     	<li><a href="jdoc.php">Joomla! framework documentor</a></li>
     	<li><a href="drawJreleases.php">Joomla! Releases</a></li>
+    	<li><a href="drawTables.php">Joomla! core database changes</a></li>
     	<li><a href="doccommenterrors.html">Joomla! trunk DocComment ERRORs</a></li>
     </ul>
 </div>

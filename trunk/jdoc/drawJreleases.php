@@ -118,7 +118,6 @@ class EasyProjectDisplay
 
     function __construct()
     {
-        ;
     }//function
 
     public function getReleases()

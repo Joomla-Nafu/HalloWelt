@@ -289,7 +289,9 @@ $fileTree->replacePath = $baseDir.DS;
 			$verFirst = '';
 			foreach ($jVersionDirs as $dir)
 			{
-			    if( ! $verFirst) { $verFirst = $dir; }
+			    if(strpos($dir, 'install_sql')) continue;
+			    if( ! $verFirst) $verFirst = $dir;
+
 			    $selected =( $dir == $jVersion ) ? ' selected="selected"' : '';
 			    $d =($dir == 'trunk') ? $dir.' #'.$LatestRevNum : $dir;
 			    echo '        <option value="'.$dir.'"'.$selected.'>'.$d.'</option>'.NL;
@@ -354,7 +356,7 @@ case 'source':
 		Here you will find a complete list of the <a href="http://joomla.org"
 			class="external">Joomla!</a> Framework classes from Version <strong
 			style="color: orange;"><?php echo $verFirst; ?></strong> up to
-		Version <strong style="color: orange;"><?php echo $verLast.' '.$LatestRev;?></strong>.
+		Version <strong style="color: orange;"><?php echo $verLast.' '; echo (isset($LatestRev)) ? $LatestRev : '';?></strong>.
 		</p>
 		<p>This <em>"Thingy"</em> has been made to help documenting the
 		Joomla! Framework on <a
