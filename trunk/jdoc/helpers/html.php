@@ -5,7 +5,8 @@
  * @subpackage  Helpers
  * @author		EasyJoomla {@link http://www.easy-joomla.org Easy-Joomla.org}
  * @author		Nikolai Plath {@link http://www.nik-it.de}
- * @author		Created on 18.07.2009
+ * @author		Created on 18-Jul-2009
+ * @license    GNU/GPL, see JROOT/LICENSE.php
  */
 abstract class EasyHtml
 {

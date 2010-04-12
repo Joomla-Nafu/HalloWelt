@@ -5,7 +5,8 @@
  * @subpackage  Helpers
  * @author      EasyJoomla {@link http://www.easy-joomla.org Easy-Joomla.org}
  * @author      Nikolai Plath {@link http://www.nik-it.de}
- * @author      Created on 18.07.2009
+ * @author      Created on 18-Jul-2009
+ * @license    GNU/GPL, see JROOT/LICENSE.php
  */
 
 ######################################
@@ -30,7 +31,7 @@ if( $fileName != 'registry.php' ){ class JRegistry {} }
 }
 function jimport() { }//function
 
-class JLoaderx
+class JLoader
 {
     function register() {}//function
     function import() {}//function
@@ -42,4 +43,3 @@ class patTemplate_Modifier {}
 class patTemplate_Function {}
 
 class PHPMailer {}
-

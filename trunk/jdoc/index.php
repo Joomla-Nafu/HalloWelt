@@ -32,7 +32,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
   <meta name="description" content="Joomla! - dynamische Portal-Engine und Content-Management-System" />
   <meta name="generator" content="Joomla! 1.5 - Open Source Content Management" />
   <title>JFrameworkDocumentor</title>
-  <link href="/assets/images/jfavicon_t.ico" rel="shortcut icon" type="image/x-icon" />
+  <link href="assets/images/jfavicon_t.ico" rel="shortcut icon" type="image/x-icon" />
 
   <link rel="stylesheet" href="assets/css/default.css" type="text/css" />
 </head>

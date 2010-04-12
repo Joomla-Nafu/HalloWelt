@@ -5,7 +5,7 @@
  * @subpackage
  * @author     EasyJoomla {@link http://www.easy-joomla.org Easy-Joomla.org}
  * @author     Nikolai Plath {@link http://www.nik-it.de}
- * @author     Created on 11.04.2010
+ * @author     Created on 11-Apr-2010
  * @license    GNU/GPL, see JROOT/LICENSE.php
  */
 
@@ -235,6 +235,12 @@ class tableLister
                 $html .= '<span class="red img2 J_'.$this->stripVersion($this->JVersions[$compareId], true).'"></span>';
             }
 
+            if($field2
+            && (strtolower($field['info']) == strtolower($field2['info'])))
+            {
+                $html .= '<span class="img2 J_'.$this->stripVersion($this->JVersions[$compareId], true).'"></span>';
+            }
+
             $html .= '</td>'.NL;
 
             $html .= '<td>'.$field['name'].'</td>'.NL;
@@ -269,6 +275,10 @@ class tableLister
                         $html .= '    <td>&nbsp;</td>'.NL;
                     }
                     $html .= '</tr>';
+                }
+                else
+                {
+
                 }
             }
         }//foreach

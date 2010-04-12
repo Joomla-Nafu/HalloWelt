@@ -7,13 +7,12 @@
  * @author     Created on 12-Apr-2010
  * @license    GNU/GPL, see JROOT/LICENSE.php
  */
-
 a.tableLink {
-display: block;
+   display: block;
 }
 
 a.tableLink:hover {
-background-color: #ffc;
+   background-color: #ffc;
 }
 
 a.returnLink {

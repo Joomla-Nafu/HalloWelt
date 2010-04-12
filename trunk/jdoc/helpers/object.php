@@ -1,10 +1,11 @@
 <?php
 /**
- * @version		$Id$
+ * @version SVN $Id$
  * @package JFrameWorkDoc
  * @subpackage  Helpers
  *
  * This class has been borrows from Joomla! for Joomla! documentation
+ * @license    GNU/GPL, see JROOT/LICENSE.php
  */
 
 //-- No direct access

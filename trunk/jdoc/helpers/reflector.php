@@ -5,7 +5,8 @@
  * @subpackage	Helpers
  * @author		EasyJoomla {@link http://www.easy-joomla.org Easy-Joomla.org}
  * @author		Nikolai Plath (elkuku) {@link http://www.nik-it.de NiK-IT.de}
- * @author		Created on 24.09.2008
+ * @author		Created on 24-Sep-2008
+ * @license    GNU/GPL, see JROOT/LICENSE.php
  */
 
 //-- No direct access

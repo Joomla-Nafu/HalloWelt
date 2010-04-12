@@ -7,6 +7,7 @@
  * This file must be placed in joomla root directory.
  * It then scans the directories under /libraries/joomla/ and writes the output to a text file called
  * jmethodlist_JVERSION_.txt
+ * @license    GNU/GPL, see JROOT/LICENSE.php
  */
 
 //--DEBUG
