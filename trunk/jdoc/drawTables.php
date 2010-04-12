@@ -9,19 +9,32 @@
  * @license    GNU/GPL, see JROOT/LICENSE.php
  */
 
-error_reporting(E_ALL);
+error_reporting(E_STRICT);
+define('JPATHROOT', dirname(__FILE__));
+
 define('DS', DIRECTORY_SEPARATOR);
 define('BR', '<br />');
 define('NL', "\n");
 
-$base = dirname(__FILE__);
-$sourcesDir = $base.DS.'sources'.DS.'joomla';
+define( '_JEXEC', 1);
+
+require_once JPATHROOT.DS.'helpers'.DS.'object.php';
+require_once JPATHROOT.DS.'helpers'.DS.'request.php';
+require_once JPATHROOT.DS.'helpers'.DS.'filesystem.php';
+
+require_once JPATHROOT.DS.'helpers'.DS.'html.php';
+
+$sourcesDir = JPATHROOT.DS.'sources'.DS.'joomla';
 $JVersions = array('1.5.15', '1.6.trunk_install_sql');
 
 $lister = new tableLister($sourcesDir, $JVersions);
 
-$tableName =(isset($_GET['table'])) ? $_GET['table'] : '';
+#$tableName =(isset($_GET['table'])) ? $_GET['table'] : '';
+$tableName = EasyRequest::getVar('table');
+
+echo '<?xml version="1.0" encoding="UTF-8"?>';
 ?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
     "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
@@ -42,6 +55,7 @@ $tableName =(isset($_GET['table'])) ? $_GET['table'] : '';
 	type="image/x-icon" />
 
 <link rel="stylesheet" href="assets/css/default.css" type="text/css" />
+<link rel="stylesheet" href="assets/css/tables.css" type="text/css" />
 </head>
 
 <body>
@@ -51,7 +65,7 @@ $tableName =(isset($_GET['table'])) ? $_GET['table'] : '';
 <?php
 if($tableName)
 {
-    echo '<a href="drawTables.php" style="float: right;">Return</a>';
+    echo '<a class="returnLink" href="drawTables.php" style="float: right;">Return</a>';
     echo $lister->drawTable($tableName);
 }
 else
@@ -60,19 +74,8 @@ else
 }
 ?>
 </div>
-<div class="easy_footer"><a class="toplink" href="#">Top</a>
-<div class="valid_xhtml"><a
-	href="http://validator.w3.org/check?uri=referer" class="external">XHTML
-1.1</a><br />
-<a href="http://jigsaw.w3.org/css-validator/check/referer"
-	class="external">CSS 2.1</a></div>
-Developed 2009 by <img src="assets/images/easy-joomla-favicon.ico"
-	alt="Easy-Joomla.org" /> <a href="http://easy-joomla.org"
-	class="external">Easy-Joomla</a> <br />
-&bull;&bull;&bull; <em>Have FUN <tt>=;)</tt></em>
-<div style="clear: both;"></div>
-</div>
 
+<? EasyHtml::footer(); ?>
 </body>
 
 </html>
@@ -111,10 +114,11 @@ class tableLister
         $html .= '<th>Name</th>';
         $html .= '<th>Availability</th>'.NL;
         $html .= '</tr>'.NL;
+
         foreach($this->tables as $name => $table)
         {
             $html .= '<tr>'.NL;
-            $html .= '<td><a href="drawTables.php?table='.$name.'">'.$name.'</a></td>'.NL;
+            $html .= '<td><a class="tableLink" href="drawTables.php?table='.$name.'">'.$name.'</a></td>'.NL;
             $html .= '<td>';
 
             $counts = array();
@@ -123,6 +127,7 @@ class tableLister
             {
                 $color =(array_key_exists($jversion, $this->tables[$name])) ? '' : ' red';
                 $html .=  '<span class="img2 J_'.$this->stripVersion($jversion, true).$color.'"></span>';
+
                 if(isset($this->tables[$name][$jversion]['fields']))
                 {
                     $counts[] = count($this->tables[$name][$jversion]['fields']);
@@ -135,8 +140,8 @@ class tableLister
                         $html .= '<div style="background-color: yellow;">Changed</div>';
                     }
                 }
-
             }//foreach
+
             $html .= '</td>'.NL;
 
             $html .= '</tr>'.NL;
@@ -341,16 +346,6 @@ class tableLister
                     }
                     $html .= '</tr>';
                 }
-                elseif(count($compares) > 1)
-                {
-//                    $html .= '<tr>'.NL;
-//
-//                    $html .= '    <td style="background-color: red;">NOT'.$this->stripVersion($this->JVersions[$baseId]).'</td>'.NL;
-//                    $html .= '    <td style="background-color: red;">'.$field['name'].'</td>'.NL;
-//                    $html .= '    <td colspan="2">&nbsp;</td>'.NL;
-//                    $html .= '</tr>'.NL;
-                }
-
             }
         }
 
@@ -458,8 +453,6 @@ class tableLister
             }//foreach
         }//foreach
 
-
-        #$this->tables[$tblName][$jversion] = $creates;
         return $creates;
     }//function
 

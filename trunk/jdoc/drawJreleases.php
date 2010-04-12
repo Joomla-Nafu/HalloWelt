@@ -8,14 +8,19 @@
  * @author		Created on 22.07.2009
  */
 
-error_reporting(E_ALL);
+error_reporting(E_STRICT);
 
+define('JPATHROOT', dirname(__FILE__));
+
+define('DS', DIRECTORY_SEPARATOR);
 defined('BR') or define('BR', '<br />');
 defined('NL') or define('NL', "\n");
 
+require_once JPATHROOT.DS.'helpers'.DS.'html.php';
+
 $display = new EasyProjectDisplay();
 
-$ID =( isset($_REQUEST['id'])) ? intval($_REQUEST['id']) : 0;
+$ID =(isset($_REQUEST['id'])) ? intval($_REQUEST['id']) : 0;
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
     "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
@@ -73,19 +78,7 @@ else
 ?>
 </div>
 </div>
-
-<div class="easy_footer"><a class="toplink" href="#">Top</a>
-<div class="valid_xhtml"><a
-	href="http://validator.w3.org/check?uri=referer" class="external">XHTML
-1.1</a><br />
-<a href="http://jigsaw.w3.org/css-validator/check/referer"
-	class="external">CSS 2.1</a></div>
-Developed 2009 by <img src="assets/images/easy-joomla-favicon.ico"
-	alt="Easy-Joomla.org" /> <a href="http://easy-joomla.org"
-	class="external">Easy-Joomla</a> <br />
-&bull;&bull;&bull; <em>Have FUN <tt>=;)</tt></em>
-<div style="clear: both;"></div>
-</div>
+<?php EasyHtml::footer(); ?>
 
 </body>
 

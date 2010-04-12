@@ -10,8 +10,10 @@
  */
 
 //--DEBUG
+#error_reporting(E_STRICT);
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+date_default_timezone_set('America/Los_Angeles');
 define('DEBUG', 1);
 
 define('DS', DIRECTORY_SEPARATOR);
@@ -26,6 +28,8 @@ define('JPATH_LIBRARIES', '');
 define( '_JEXEC', 1);
 
 require_once JPATHROOT.DS.'helpers'.DS.'object.php';
+require_once JPATHROOT.DS.'helpers'.DS.'request.php';
+require_once JPATHROOT.DS.'helpers'.DS.'filesystem.php';
 require_once JPATHROOT.DS.'helpers'.DS.'jfaker.php';
 require_once JPATHROOT.DS.'helpers'.DS.'reflector.php';
 require_once JPATHROOT.DS.'helpers'.DS.'html.php';

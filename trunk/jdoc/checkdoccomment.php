@@ -14,7 +14,7 @@
  */
 $CLI =(substr(php_sapi_name(), 0, 3) == 'cli') ? true : false;
 
-error_reporting(E_ALL);
+error_reporting(E_STRICT);
 define('DS', DIRECTORY_SEPARATOR);
 
 define('_JEXEC', 1);

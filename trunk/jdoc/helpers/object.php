@@ -40,11 +40,7 @@ class EasyObject
 	 * @return	Object
 	 * @since	1.5
 	 */
-	function EasyObject()
-	{
-		$args = func_get_args();
-		call_user_func_array(array(&$this, '__construct'), $args);
-	}
+	public function __construct(){}
 
 	/**
 	 * Class constructor, overridden in descendant classes.
@@ -52,7 +48,7 @@ class EasyObject
 	 * @access	protected
 	 * @since	1.5
 	 */
-	function __construct() {}
+#	 function __construct() {}
 
 
 	/**

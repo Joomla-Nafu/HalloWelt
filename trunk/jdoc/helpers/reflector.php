@@ -21,7 +21,7 @@ class EasyReflector
      * @param string $path from JROOT
      * @param string $file filename
      */
-    function reflect($sub_package, $sub_sub_package, $sub_sub_sub_package, $fileName, $output_format, $jVersion1, $jVersion2='')
+    public static function reflect($sub_package, $sub_sub_package, $sub_sub_sub_package, $fileName, $output_format, $jVersion1, $jVersion2='')
     {
         $rawObject = new EasyObject();
         $rawObject->subPackage = $sub_package;
@@ -305,7 +305,7 @@ class EasyReflector
         return $reflector->reflect($rawObject, $fullPath, $jVersion2);
     }//function
 
-    function tryInc($base, $path)
+    private static function tryInc($base, $path)
     {
         if( ! EasyFile::exists($base.DS.$path)) { return false; }
         include_once($base.DS.$path);
