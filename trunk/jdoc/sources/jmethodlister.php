@@ -133,11 +133,15 @@ for ($i = 0; $i < count($folders); $i++)
         else
         {
             $allClasses = get_declared_classes();
-            if( ! $allClasses )
+
+            if( ! $allClasses)
             {
                 $allClasses = array();
             }
-            if( strpos($file, 'import.php')){; continue;}
+
+            if(strpos($file, 'import.php')); continue;
+            if(strpos($file, 'garbagecron.php')) continue;
+
             include_once $file;
             $foundClasses = array_diff(get_declared_classes(), $allClasses);
 

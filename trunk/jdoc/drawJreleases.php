@@ -16,99 +16,121 @@ define('JPATHROOT', dirname(__FILE__));
 define('DS', DIRECTORY_SEPARATOR);
 defined('BR') or define('BR', '<br />');
 defined('NL') or define('NL', "\n");
-
+#print_r($_REQUEST);
 require_once JPATHROOT.DS.'helpers'.DS.'html.php';
 
 $display = new EasyProjectDisplay();
 
-$ID =(isset($_REQUEST['id'])) ? intval($_REQUEST['id']) : 0;
+$ID =(isset($_REQUEST['id'])) ? $_REQUEST['id'] : 0;
+$ID = (string) preg_replace( '/[^0-9\.]/i', '', $ID );
 ?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
     "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-     xsi:schemaLocation="http://www.w3.org/MarkUp/SCHEMA/xhtml11.xsd"
-     xml:lang="de-de" >
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.w3.org/MarkUp/SCHEMA/xhtml11.xsd"
+	xml:lang="de-de">
 <head>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-  <meta name="robots" content="index, follow" />
-  <meta name="keywords" content="joomla, Joomla" />
-  <meta name="description" content="Joomla! - dynamische Portal-Engine und Content-Management-System" />
-  <meta name="generator" content="Joomla! 1.5 - Open Source Content Management" />
-  <title>Draw JReleases4Wiki</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="robots" content="index, follow" />
+<meta name="keywords" content="joomla, Joomla" />
+<meta name="description"
+	content="Joomla! - dynamische Portal-Engine und Content-Management-System" />
+<meta name="generator"
+	content="Joomla! 1.5 - Open Source Content Management" />
+<title>Draw JReleases4Wiki</title>
 
-  <link href="/assets/images/jfavicon_t.ico" rel="shortcut icon" type="image/x-icon" />
+<link href="/assets/images/jfavicon_t.ico" rel="shortcut icon"
+	type="image/x-icon" />
 
-  <link rel="stylesheet" href="assets/css/default.css" type="text/css" />
+<link rel="stylesheet" href="assets/css/default.css" type="text/css" />
 </head>
 
 <body>
+<div id="outerx">
 <div id="homeLink"><a href="index.php">Home</a></div>
-<h3 style="float: right;">Downloads provided by <a href="httzp://joomlacode.org">JoomlaCode.org</a></h3>
+<h3 style="float: right;">Downloads provided by <a
+	href="http://joomlacode.org">JoomlaCode.org</a></h3>
 
-<div>
-    <img src="assets/images/joomla_logo_black.jpg" alt="Joomla! Logo"  />
+<div><img src="assets/images/joomla_logo_black.jpg" alt="Joomla! Logo" />
 Releases
 <form action="drawJreleases.php">
-    <div>
-    Joomla! Version:
-    <select name="id" onchange="form.submit();">
-        <option value="0">Select...</option>
-        <?php
-        foreach($display->getReleases() as $idName => $idId)
-        {
-            $selected =( $idId == $ID ) ? ' selected="selected"' : '';
-        	echo '<option value="'.$idId.'"'.$selected.'>'.$idName.'</option>';
-        }//foreach
-        ?>
-    </select>
-    <noscript><div style="display: inline;"><input type="submit" value="Submit" /></div></noscript>
-    </div>
+<div>Joomla! Version: <select name="id" onchange="form.submit();">
+	<option value="0">Select...</option>
+	<?php
+	foreach($display->getReleases() as $idName => $idId)
+	{
+	    $selected =($idName == $ID) ? ' selected="selected"' : '';
+	    echo '<option value="'.$idName.'"'.$selected.'>'.$idName.'</option>';
+	}//foreach
+	?>
+</select>
+<noscript>
+<div style="display: inline;"><input type="submit" value="Submit" /></div>
+</noscript>
+</div>
 </form>
 
-<div style="background-color: #eee;">
-<?php
-if( ! $ID )
+<p>This CURLs the download page on <a href="http://joomlacode.org">Joomla!Code.org</a>,
+extracts "valuable information" and translates them to HTML and Wiki
+syntax.</p>
+
+<div style="background-color: #eee;"><?php
+if( ! $ID)
 {
     echo 'Please select a version...';
 }
 else
 {
-    $display->drawRelease($ID);
-}
-?>
-</div>
-</div>
-<?php EasyHtml::footer(); ?>
+    $releases = $display->getReleases();
 
+    if( ! array_key_exists($ID, $releases))
+    {
+        echo 'unknown version...';
+    }
+    else
+    {
+        foreach($releases[$ID] as $releaseID)
+        {
+            $display->drawRelease($releaseID);
+        }//foreach
+    }
+}
+?></div>
+</div>
+<h3 style="text-align: center;">Downloads provided by <a
+	href="http://joomlacode.org">JoomlaCode.org</a></h3>
+
+<?php EasyHtml::footer(); ?></div>
 </body>
 
 </html>
 <?php
-    /*
-     * END...
-     */
+/*
+ * END...
+ */
 
 class EasyProjectDisplay
 {
     private $JReleases = array(
-        '1.5.15'=>4947
-        , '1.5.14'=>4734
-        ,'1.5.13'=>4712
-        , '1.5.12'=>4665
-        , '1.5.11'=>4556
-        , '1.5.10'=>4460
-        , '1.5.9'=>4288
-        , '1.5.8'=>4136
-        ///// '1.5.7'=>3941
-        , '1.5.6'=>3883
-        //, '1.5.5'=>3846
-        , '1.5.4'=>3786
-        , '1.5.3'=>3587
-        , '1.5.2'=>3466
-        , '1.5.1'=>3322
-        , '1.5.0'=>2
-        );
+          '1.5.15'=>array(11396, 11395)
+    , '1.5.14'=>array(10785, 10786)//4734)
+    ,'1.5.13'=>array(10697, 10696)//4712)
+    , '1.5.12'=>array(10547, 10548)//4665)
+    , '1.5.11'=>array(10209, 10208)//4556)
+    , '1.5.10'=>array(9910, 9911)//4460)
+    , '1.5.9'=>array(9294, 9293)//4288)
+    , '1.5.8'=>array(8897, 8898)//4136)
+    ///// '1.5.7'=>3941
+    , '1.5.6'=>array(8232, 8233)//3883)
+    //, '1.5.5'=>3846
+    , '1.5.4'=>array(7926, 7925)//3786)
+    , '1.5.3'=>array(7369, 7370)//3587)
+    , '1.5.2'=>array(7061, 7060)//3466)
+    , '1.5.1'=>array(6731, 6732)//3322)
+    , '1.5.0'=>array(5078)//2)
+    );
 
     function __construct()
     {
@@ -116,16 +138,11 @@ class EasyProjectDisplay
 
     public function getReleases()
     {
-    	return $this->JReleases;
+        return $this->JReleases;
     }//function
 
     public function drawRelease($ID)
     {
-        if( ! $ID = intval($ID))
-        {
-            return '';
-        }
-
         $versionlinks = array();
         $updateLinks = array();
         $options = array(
@@ -133,106 +150,123 @@ class EasyProjectDisplay
         , 'project'=>'joomla'
         );
 
+        foreach($this->JReleases as $name => $ids)
+        {
+            if( in_array($ID, $ids))
+            {
+                $version = $name;
 
-        if( $key = array_search($ID, $this->JReleases))
-        {
-            $version = $key;
-        }
-        else
-        {
-            $version = 'unknown';
-        }
+                break;
+            }
+            else
+            {
+                $version = 'unknown';
+            }
+        }//foreach
 
         $options['pkgID'] = $ID;
 
         $package =$this->getPackage($options);
         $regex = '/Joomla_(.*?)_to_/';
 
-        foreach ($package->links as $link)
+        foreach ($package->items as $item)
         {
-            if( ! strpos($link, 'download')) { continue; }
+            $link = $item->link;
+            if( ! strpos($link, 'download')) continue;
 
             $ext = substr($link, strrpos($link, '.') + 1);
             $ext =( $ext == 'gz' ) ? 'tgz' : $ext;
             if( strpos($link, 'Stable-Full_Package'))
             {
-                $versionLinks[$version][$ext] = $link;
+                $versionLinks[$version][$ext]['link'] = $link;
+                $versionLinks[$version][$ext]['md5'] = $item->md5;
             }
             elseif ( strpos($link, 'Stable-Patch_Package'))
             {
                 preg_match('/Joomla_(.*?)_to_/',$link, $matches);
-                $updateLinks[$version][$matches[1]][$ext] = $link;
+                $updateLinks[$version][$matches[1]][$ext]['link'] = $link;
+                $updateLinks[$version][$matches[1]][$ext]['md5'] = $item->md5;
             }
-            if( isset($matches[1]))
+            if(isset($matches[1]))
             {
-              arsort($updateLinks[$version][$matches[1]]);
+                arsort($updateLinks[$version][$matches[1]]);
             }
         }//foreach
 
-        if( ! $updateLinks)
-        {
-            echo 'found NOTHING ...';
-            return;
-        }
-
-        arsort($updateLinks[$version]);
+        uksort($updateLinks[$version], 'EasyProjectDisplay::versionSort');
 
         echo '<hr /><h2>HTML</h2>';
 
         $html = '';
+        $html .= '<div style="background-color: #ccffcc; padding: 1em;">';
         $html .= '<ul>'.NL;
-
         $html .= '<li class="version">Joomla! '.$version;
-        foreach ($versionLinks[$version] as $vExt => $vLink)
+
+        foreach($versionLinks[$version] as $vExt => $vLink)
         {
-            $html .= NL.'&nbsp;&bull;&nbsp;<a href="'.$vLink.'">'.$vExt.'</a>';
+            $html .= NL.'&nbsp;&bull;&nbsp;<a href="'.$vLink['link'].'">'.$vExt.'</a>';
+            $html .= '<small><small><small><small>&nbsp;'.$vLink['md5'].'</small></small></small></small>';
         }//foreach
+
         $html .= '</li>';
 
         $html .= NL.'</ul>';
-        $html .= NL.'<h3>Updates</h3>';
-        $html .= NL.'<ul>';
 
-        foreach ($updateLinks[$version] as $uVersion=>$uLinks)
+        $html .= '</div>';
+
+        if(count($updateLinks[$version]))
         {
-            $html .= NL.'<li class="version">Update '.$uVersion.' => '.$version;
 
-            foreach ($uLinks as $uExt => $uLink)
+            $html .= NL.'<h3>Updates</h3>';
+            $html .= '<div style="background-color: #ccffcc; padding: 1em;">';
+            $html .= NL.'<ul>';
+
+            foreach ($updateLinks[$version] as $uVersion=>$uLinks)
             {
-                $html .= NL.'&nbsp;&bull;&nbsp;<a href="'.$uLink.'">'.$uExt.'</a>';
+                $html .= NL.'<li class="version">Update '.$uVersion.' => '.$version;
+
+                foreach ($uLinks as $uExt => $uLink)
+                {
+                    $html .= NL.'&nbsp;&bull;&nbsp;<a href="'.$uLink['link'].'">'.$uExt.'</a>';
+                    $html .= '<small><small><small><small>&nbsp;'.$uLink['md5'].'</small></small></small></small>';
+                }//foreach
+
+                $html .= '</li>';
             }//foreach
 
-            $html .= '</li>';
-        }//foreach
-
-        $html .= NL.'</ul>';
+            $html .= NL.'</ul>';
+            $html .= '</div>';
+        }
 
         echo $html;
         echo '<textarea style="width: 100%; height: 100px;" cols="1000" rows="1000">'.htmlentities($html).'</textarea>';
 
-        echo '<hr /><h2>Wiki syntax</h2>';
+        echo '<hr /><h2>Wiki</h2>';
         echo '<textarea style="width: 100%; height: 100px;" cols="1000" rows="1000">';
         echo "== $version ==".NL;
         echo '* ';
 
         foreach ($versionLinks[$version] as $vExt => $vLink)
         {
-            echo " [$vLink $vExt]";
+            echo ' ['.$vLink['link'].' '.$vExt.'] ';
+            echo '<small><small><small><small>&nbsp;'.$vLink['md5'].'</small></small></small></small> ';
         }//foreach
 
         foreach ($updateLinks[$version] as $uVersion=>$uLinks)
         {
-            echo NL."**Update von '''$uVersion'''";
+            echo NL."*Update von '''$uVersion'''";
             foreach ($uLinks as $uExt => $uLink)
             {
-                echo " [$uLink $uExt]";
+                #    echo " [$uLink $uExt]";
+                echo ' ['.$uLink['link'].' '.$uExt.'] ';
+                echo '<small><small><small><small>&nbsp;'.$uLink['md5'].'</small></small></small></small> ';
             }//foreach
         }//foreach
 
         echo '</textarea>';
-        echo '<hr /><h2>DOWNLOADS</h2><hr />';
+        echo '<hr /><h2>RAW</h2><hr />';
         echo $package->string;
-
+        echo '<!-- ENDRAW -->';
     }//function
 
     /**
@@ -243,12 +277,14 @@ class EasyProjectDisplay
      */
     private static function getPackage($options)
     {
-        $url = $options['baseURL'].'/gf/project/'.$options['project'].'/frs/?action=FrsReleaseBrowse&frs_package_id='.$options['pkgID'];
-
+        #     $url = $options['baseURL'].'/gf/project/'.$options['project'].'/frs/?action=FrsReleaseBrowse&frs_package_id='.$options['pkgID'];
+        $url = $options['baseURL'].'/gf/project/'.$options['project'].'/frs/?action=FrsReleaseView&release_id='.$options['pkgID'];
+        #echo $url;
         $result = self::get_web_page( $url );
         $content = $result['content'];
-
-        preg_match("~<div class=\"main\">(.*)<div class=\"paginator\">~smU",$content, $matches);
+        #echo '<pre>'.htmlentities($content).'</pre>';
+        preg_match("~<div class=\"tabbertab\" title=\"Files\" id=\"filestab\">(.*)<div class=\"tabbertab\" title=\"Associated Tracker Items\" id=\"trackeritemstab\">~smU",$content, $matches);
+        #       preg_match("~<div class=\"main\">(.*)<div class=\"paginator\">~smU",$content, $matches);
         $resultString = (isset($matches[1])) ? $matches[1] : '';
 
         preg_match_all("~<map.*>(.*)</map>~smU", $resultString, $matches);
@@ -298,6 +334,7 @@ class EasyProjectDisplay
         $resultString = str_replace(array('nowrap="nowrap" ', 'bgcolor="#FFFFFF" '), '', $resultString);
         $resultString = str_replace(array('<p>', '</p>'), '', $resultString);
         $resultString = str_replace(array('<br />', '<br/>', '<strong>', '</strong>'), '', $resultString);
+        $resultString = str_replace('</div>', '', $resultString);
 
         $resultString = str_replace('<table', '<table width="100%"', $resultString);
 
@@ -307,6 +344,29 @@ class EasyProjectDisplay
 
         $resultString = str_replace($buus, '', $resultString);
 
+        $lines = explode("\n", $resultString);
+
+        $items = array();
+
+        foreach($lines as $line)
+        {
+            if( ! strpos($line, '<tr><td >')) continue;
+
+            $parts = explode('</td><td >', $line);
+
+            $i = new stdClass();
+            $regex = '/href\s*=\s*\"*([^\">]*)/i';
+            preg_match_all($regex, $parts[0], $matches);
+            $i->link = $matches[1][0];
+            $i->size = $parts[1];
+            $i->downloads = $parts[2];
+            $i->md5 = str_replace('</td>', '', $parts[3]);
+
+            $items[] = $i;
+
+        }//foreach
+        #echo '<pre>'.htmlentities($resultString).'</pre>';
+
         $regex = '/href\s*=\s*\"*([^\">]*)/i';
         preg_match_all($regex, $resultString, $matches);
 
@@ -314,6 +374,7 @@ class EasyProjectDisplay
         $ret = new stdClass();
         $ret->string = $resultString;
         $ret->links = $links;
+        $ret->items = $items;
 
         return $ret;
     }//function
@@ -365,5 +426,23 @@ class EasyProjectDisplay
 
         return $header;
     }//function
+
+    /**
+     * Custom sort callback
+     * @param string $a
+     * @param string $b
+     * @return true if $a < $b
+     */
+    private static function versionSort($a, $b)
+    {
+        $vs = explode('.', $a);
+        $v1 = $vs[2];
+
+        $vs = explode('.', $b);
+        $v2 = $vs[2];
+
+        return $v1 < $v2;
+    }//function
+
 
 }//class

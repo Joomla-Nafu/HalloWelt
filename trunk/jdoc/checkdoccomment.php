@@ -15,7 +15,9 @@
  */
 $CLI =(substr(php_sapi_name(), 0, 3) == 'cli') ? true : false;
 
-error_reporting(E_STRICT);
+#error_reporting(E_STRICT);
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 define('DS', DIRECTORY_SEPARATOR);
 
 define('_JEXEC', 1);
@@ -41,10 +43,10 @@ if($CLI)
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <title>Errors in Joomla! framework DocComments</title>
-<link href="/assets/images/jfavicon_t.ico" rel="shortcut icon" type="image/x-icon" />
+<link href="/assets/images/jfavicon_t.ico" rel="shortcut icon"
+	type="image/x-icon" />
 <link rel="stylesheet" href="assets/css/default.css" type="text/css" />
 <style type="text/css">
-
 </style>
 </head>
 <body>
@@ -71,11 +73,12 @@ $JInspector->checkDocComments();
 <h2 style="color: green;">Finished <tt>=;)</tt></h2>
 <p style="float: right;"><a
 	href="http://validator.w3.org/check?uri=referer"><img
-	src="http://www.w3.org/Icons/valid-xhtml11-blue"
-	alt="Valid XHTML 1.1" height="31" width="88" /></a></p>
+	src="http://www.w3.org/Icons/valid-xhtml11-blue" alt="Valid XHTML 1.1"
+	height="31" width="88" /></a></p>
 <p>For more great scripts visit <a href="http://easy-joomla.org">Easy-Joomla.org</a></p>
-<em>Generated on <tt><?php echo date('Y-M-d H:i:s'); ?></tt></em>
-</div>
+<em>Generated on <tt><?php echo date('Y-M-d H:i:s'); ?></tt></em> <br />
+<small><small>(btw... we found <?php echo $JInspector->getErrorCount(); ?>
+errors..) hf</small></small></div>
 </body>
 </html>
 <?php
@@ -141,6 +144,8 @@ class JInspector
 
     private $showLineNumbers = true;
 
+    private $errorCount = 0;
+
     /**
      * Constructor
      *
@@ -154,11 +159,16 @@ class JInspector
         $this->JVersion = new JVersion();
     }//function
 
+    public function getErrorCount()
+    {
+        return $this->errorCount;
+    }//function
+
     public function checkDocComments()
     {
         $info = self::getSvnInfo();
-        echo $this->JVersion->getLongVersion().BR;
-        echo '<tt>@version $Id: '.$info->Revision.' '.$info->{"Letztes Änderungsdatum"}.'</tt>'.BR;
+        #echo $this->JVersion->getLongVersion().BR;
+        echo 'Joomla! trunk <tt>@version $Id: '.$info->Revision.' '.$info->{"Letztes Änderungsdatum"}.'</tt>'.BR;
         echo HR.'Starting...';
 
         $this->baseClasses['JObject'] = 'base/object.php';
@@ -203,8 +213,8 @@ class JInspector
                 continue;
             }
 
+            if($path == 'utilities/garbagecron.php') continue;
             include JPATH_LIBRARIES.DS.'joomla'.DS.$path ;
-#            echo '...OK';
 
             $foundClasses = array_diff(get_declared_classes(), $allClasses);
 
@@ -223,39 +233,39 @@ class JInspector
         }//foreach
 
         $skippings = array(
-    		'import.php'
-    		, 'form/fields/list.php'
-    		, 'html/parameter/element/list.php'
-    		);
+		'import.php'
+		, 'form/fields/list.php'
+		, 'html/parameter/element/list.php');
 
-    		//-- The rest
-    		foreach ($files as $file)
-    		{
-    		    echo HR;
+		//-- The rest
+		foreach ($files as $file)
+		{
+		    echo HR;
 
-    		    $s = str_replace(JPATH_LIBRARIES.DS.'joomla'.DS, '', $file);
-    		    echo $s.'... ';
+		    $s = str_replace(JPATH_LIBRARIES.DS.'joomla'.DS, '', $file);
+		    echo $s.'... ';
 
-    		    if(in_array($s, $skippings)) { echo 'skipping'; continue; }
-    		    if(in_array($s, $this->baseClasses)) {  echo 'skipping'; continue; }
+		    if(in_array($s, $skippings)) { echo 'already processed'; continue; }
+		    if(in_array($s, $this->baseClasses)) {  echo 'already processed'; continue; }
+		    if($s == 'utilities/garbagecron.php') continue;
 
-    		    include($file);
+		    include($file);
 
-    		    $foundClasses = array_diff(get_declared_classes(), $allClasses);
+		    $foundClasses = array_diff(get_declared_classes(), $allClasses);
 
-    		    if( ! $foundClasses)
-    		    {
-    		        echo 'NOTHING FOUND !!!!'.BR.NL;
-    		        continue;
-    		    }
+		    if( ! $foundClasses)
+		    {
+		        echo 'NOTHING FOUND !!!!'.BR.NL;
+		        continue;
+		    }
 
-    		    printf('found <b>%d</b> class(es): ', count($foundClasses));
-    		    echo '<b>'.implode('</b>, <b>', $foundClasses).'</b>...checking...';
+		    printf('found <b>%d</b> class(es): ', count($foundClasses));
+		    echo '<b>'.implode('</b>, <b>', $foundClasses).'</b>...checking...';
 
-    		    $allClasses = array_merge($foundClasses, $allClasses);
-    		    $this->inspectClasses($foundClasses);
+		    $allClasses = array_merge($foundClasses, $allClasses);
+		    $this->inspectClasses($foundClasses);
 
-    		}//foreach
+		}//foreach
     }//function
 
     /**
@@ -288,6 +298,7 @@ class JInspector
 
                 if( ! $comment = $method->getDocComment())
                 {
+                    $this->errorCount ++;
                     $s = '<b style="color: red">NO METHOD DOCCOMMENT !!</b>';
                     $s .=($this->showLineNumbers) ? ' <tt>#'.$method->getStartLine().'</tt>' : '';
                     $mErrors[$method->getName()] = $s;
@@ -338,6 +349,8 @@ class JInspector
 
                     if(count($n))
                     {
+                        $this->errorCount += count($n);
+
                         $s = '<b style="color: red;">'.implode('</b>, <b style="color: red;">', $n).'</b>';
                         $s .=($this->showLineNumbers) ? ' <tt>#'.$method->getStartLine().'</tt>' : '';
 
@@ -358,7 +371,7 @@ class JInspector
 
             if(count($mErrors))
             {
-                echo BR.'<b style="color: blue;">'.$theClass->getName().'</b>';
+                echo BR.'<b style="color: blue;"><a id="'.$theClass->getName().'" href="#'.$theClass->getName().'">'.$theClass->getName().'</a></b>';
 
                 if(count($mErrors))
                 {
@@ -511,29 +524,29 @@ class JInspector
     {
         $info = new stdClass();
 
-    	$fileName = dirname(__FILE__).DS.'svn_info';
+        $fileName = dirname(__FILE__).DS.'svn_info';
 
-    	if( ! file_exists(($fileName)))
-    	{
-    	    return $info;
+        if( ! file_exists(($fileName)))
+        {
+            return $info;
 
-    	}
+        }
 
-    	$lines = file($fileName);
+        $lines = file($fileName);
 
-    	foreach($lines as $line)
-    	{
-    	    if( ! trim($line)) continue;
+        foreach($lines as $line)
+        {
+            if( ! trim($line)) continue;
 
-    		$l = explode(':', $line);
-    		$key = $l[0];
-    		$value = trim(substr($line, strlen($key) + 1));
+            $l = explode(':', $line);
+            $key = $l[0];
+            $value = trim(substr($line, strlen($key) + 1));
 
-    		$info->$key = $value;
+            $info->$key = $value;
 
-    	}//foreach
+        }//foreach
 
-    	return $info;
+        return $info;
     }//function
 
     /**
