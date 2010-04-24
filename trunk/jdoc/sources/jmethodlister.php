@@ -80,17 +80,16 @@ else
 
 }
 
-
 $folders = EasyFolder::folders($basePath);
+if( ! $folders) return;
+
 array_unshift($folders, '');//add 'base folder'
+
 $folders[] = 'xxxxx';//for custom class list
 
 $JMethods = array();
-
 $classes = array();
-
 $packages = array();
-
 $extenders = array();
 
 for ($i = 0; $i < count($folders); $i++)
@@ -139,7 +138,7 @@ for ($i = 0; $i < count($folders); $i++)
                 $allClasses = array();
             }
 
-            if(strpos($file, 'import.php')); continue;
+            if(strpos($file, 'import.php')) continue;
             if(strpos($file, 'garbagecron.php')) continue;
 
             include_once $file;
@@ -510,7 +509,7 @@ class EasyFolder
 
         // Is the path a folder?
         if (!is_dir($path)) {
-            JError::raiseWarning(21, 'JFolder::folder: ' . JText::_('Path is not a folder'), 'Path: ' . $path);
+            echo 'JFolder::folder: Path is not a folder ' . $path;
             return false;
         }
 

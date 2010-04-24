@@ -56,8 +56,8 @@ $ID = (string) preg_replace( '/[^0-9\.]/i', '', $ID );
 <div><img src="assets/images/joomla_logo_black.jpg" alt="Joomla! Logo" />
 Releases
 <form action="drawJreleases.php">
-<div>Joomla! Version: <select name="id" onchange="form.submit();">
-	<option value="0">Select...</option>
+<div>Joomla! Version: <select name="id" onchange="form.submit();" style="font-size: 1.4em;">
+	<option value="0">Select a version...</option>
 	<?php
 	foreach($display->getReleases() as $idName => $idId)
 	{
@@ -114,7 +114,8 @@ else
 class EasyProjectDisplay
 {
     private $JReleases = array(
-          '1.5.15'=>array(11396, 11395)
+      '1.5.16'=>array(12153, 12154)
+    , '1.5.15'=>array(11396, 11395)
     , '1.5.14'=>array(10785, 10786)//4734)
     ,'1.5.13'=>array(10697, 10696)//4712)
     , '1.5.12'=>array(10547, 10548)//4665)

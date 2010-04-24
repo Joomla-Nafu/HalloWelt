@@ -50,7 +50,7 @@ if( ! is_dir(JPATH_ROOT.DS.'sources'.DS.'joomla'))
 }
 
 $jVersionDirs = EasyFolder::folders(JPATH_ROOT.DS.'sources'.DS.'joomla');
-
+#var_dump($jVersionDirs);
 natsort($jVersionDirs);
 
 $fileName = JPATH_ROOT.DS.'svn_info';
