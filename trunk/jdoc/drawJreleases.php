@@ -114,7 +114,8 @@ else
 class EasyProjectDisplay
 {
     private $JReleases = array(
-      '1.5.16'=>array(12153, 12154)
+      '1.5.17'=>array(12193, 12192)
+    , '1.5.16'=>array(12153, 12154)
     , '1.5.15'=>array(11396, 11395)
     , '1.5.14'=>array(10785, 10786)//4734)
     ,'1.5.13'=>array(10697, 10696)//4712)
