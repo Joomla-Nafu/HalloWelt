@@ -68,6 +68,7 @@ else
     tryInc('joomla'.DS.'application'.DS.'component'.DS.'modelform.php');
     tryInc('joomla'.DS.'database'.DS.'table.php');
     tryInc('joomla'.DS.'database'.DS.'tablenested.php');
+    tryInc('joomla'.DS.'form'.DS.'helper.php');
     tryInc('joomla'.DS.'form'.DS.'formfield.php');
     tryInc('joomla'.DS.'form'.DS.'fields'.DS.'text.php');
     tryInc('joomla'.DS.'form'.DS.'fields'.DS.'list.php');
@@ -118,7 +119,7 @@ for ($i = 0; $i < count($folders); $i++)
         if($file == 'xxxxx')
         {
             //--custom class list - files included before
-            $foundClasses = array('JObject', 'JObservable', 'JObserver', 'JDocumentRenderer', 'JRequest', 'JEvent', 'JRegistry', 'JVersion');//, 'JController', 'JComponentHelper', 'JModel');
+            $foundClasses = array('JObject', 'JObservable', 'JObserver', 'JDocumentRenderer', 'JRequest', 'JEvent', 'JRegistry', 'JVersion', 'JFormHelper');//, 'JController', 'JComponentHelper', 'JModel');
             if( version_compare($reqJVER, '1.6.a', '<'))//, '<'))
             {
                 //-- J! 1.5

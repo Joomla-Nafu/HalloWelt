@@ -182,6 +182,7 @@ class JInspector
             $this->baseClasses['JModelForm'] = 'application/component/modelform.php';
             $this->baseClasses['JTable'] = 'database/table.php';
             $this->baseClasses['JTableNested'] = 'database/tablenested.php';
+            $this->baseClasses['JFormHelper'] = 'form/helper.php';
             $this->baseClasses['JFormField'] = 'form/formfield.php';
             #            $baseClasses['JFormFieldText'] = 'form/fields/text.php';
             $this->baseClasses['JFormFieldList'] = 'form/fields/list.php';
