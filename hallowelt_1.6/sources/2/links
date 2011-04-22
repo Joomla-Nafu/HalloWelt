@@ -1,0 +1,8 @@
+1/admin/sql/updates/mysql/0.0.1.sql
+1/admin/hallowelt.php
+
+2/site/views/hallowelt/view.html.php
+2/site/views/hallowelt/tmpl/default.php
+
+2/site/hallowelt.php
+2/site/controller.php
