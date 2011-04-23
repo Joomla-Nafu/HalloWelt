@@ -69,22 +69,21 @@ class FileInfo
         }
 
         $parts = explode(DS, $dest);
-var_dump($parts);
         array_pop($parts);
 
-        $p = '';//$parts[0];//'';//@todo C:\\ ???¿¿
+        $p = '';
 
         foreach ($parts as $part)
         {
-        	echo BR.$part.BR;
             if( ! $part)
             continue;
 
             $p .= DS.$part;
+            
+            $p = trim($p, DS);
 
             if( ! is_dir($p))
             {
-            	echo $p;
                 mkdir($p);
             }
         }
@@ -92,20 +91,6 @@ var_dump($parts);
         copy($src, $dest);
     }//function
 
-
-
-// ------------ lixlpixel recursive PHP functions -------------
-// recursive_remove_directory( directory to delete, empty )
-// expects path to directory and optional true / false to empty
-// of course PHP has to have the rights to delete the directory
-// you specify and all files and folders inside the directory
-// ------------------------------------------------------------
-
-// to use this function to totally remove a directory, write:
-// recursive_remove_directory('path/to/directory/to/delete');
-
-// to use this function to empty a directory, write:
-// recursive_remove_directory('path/to/full_directory',true);
 
 public static function deleteDir($directory, $empty=false)
 {

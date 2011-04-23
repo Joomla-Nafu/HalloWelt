@@ -14,7 +14,7 @@ define('DS', DIRECTORY_SEPARATOR);
 define('BR', '<br />');
 
 define('ROOT_PATH', str_replace('/', DS, dirname($_SERVER['SCRIPT_FILENAME'])));
-var_dump(ROOT_PATH);
+//var_dump(ROOT_PATH);
 define('PATH_SOURCES', ROOT_PATH.DS.'sources');
 define('PATH_BUILD', ROOT_PATH.DS.'builds');
 
@@ -124,9 +124,6 @@ th.cell {
 	        array_shift($parts);
 	        $dst = implode(DS, $parts);
 
-	        echo $path.BR;
-	        // echo $num.DS.$dst.BR;
-
 	        FileInfo::copy(PATH_SOURCES.DS.$path, PATH_BUILD.DS.$num.DS.$dst);
 
 	        $zip->addFile(PATH_SOURCES.DS.$path, $dst);
@@ -202,13 +199,7 @@ th.cell {
 	        || strpos($line, '#') === 0)
 	        continue;
 
-	        $parts = explode(' ', $line);
-
-	        $s = trim($parts[0]);
-	        $alias =(isset($parts[1])) ? trim($parts[1]) : '';
-
-	        $syms[$base][$parts[0]] = $alias;
-	        $links[] = trim($line);
+	        $links[] = trim(str_replace('/', DS, $line));
 	    }//foreach
 
 	    return $links;
