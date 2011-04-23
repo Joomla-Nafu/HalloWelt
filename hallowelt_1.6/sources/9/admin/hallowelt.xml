@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<extension type="component" version="1.6.0">
- 
+<extension type="component" version="1.6.0" method="upgrade">
+
     <name>Hallo Welt !</name>
     <creationDate>Erstellungsdatum</creationDate>
     <author>Max Mustermann</author>
@@ -9,9 +9,21 @@
     <authorUrl>http://www.example.org</authorUrl>
     <copyright>Copyright Info</copyright>
     <license>Lizenz Info</license>
-    <version>0.0.1</version>
+    <version>0.0.9</version>
     <description>Beschreibung der Komponente</description>
+
+    <install>
+        <sql>
+            <file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
+        </sql>
+    </install>
  
+    <uninstall>
+        <sql>
+            <file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
+        </sql>
+    </uninstall>
+
     <update>
         <schemas>
             <schemapath type="mysql">sql/updates/mysql</schemapath>
@@ -19,6 +31,11 @@
     </update>
 
     <files folder="site">
+    	<folder>language</folder>
+        <folder>models</folder>
+        <folder>views</folder>
+ 
+        <filename>controller.php</filename>
         <filename>hallowelt.php</filename>
     </files>
  
@@ -26,10 +43,15 @@
         <menu>Hallo Welt !</menu>
  
         <files folder="admin">
+            <folder>controllers</folder>
+            <folder>language</folder>
+            <folder>models</folder>
             <folder>sql</folder>
+            <folder>tables</folder>
+            <folder>views</folder>
 
+            <filename>controller.php</filename>
             <filename>hallowelt.php</filename>
         </files>        
     </administration>
- 
 </extension>

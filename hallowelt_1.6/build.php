@@ -82,6 +82,12 @@ th.cell {
 	</p>
 	<?php
 
+	if( ! class_exists('ZipArchive'))
+	{
+	    exit('ba');
+	}
+
+
 	$projects = getProjects();
 
 	foreach ($projects as $num => $projectPath)
@@ -89,11 +95,12 @@ th.cell {
 	    echo '<h1>Project: '.$num.'</h1>';
 
 	    $symlinkList = getSyms($num);
-	    //    var_dump($symlinkList);
 
-	    if( ! class_exists('ZipArchive'))
+	    if( ! $symlinkList)
 	    {
-	        exit('ba');
+	        echo 'LinkList not found :(';
+
+	        continue;
 	    }
 
 	    $zip = new ZipArchive;
@@ -130,8 +137,7 @@ th.cell {
 	    FileInfo::copy(PATH_SOURCES.DS.$xmlPath, PATH_BUILD.DS.$xmlPath);
 	    $zip->addFile(PATH_SOURCES.DS.$xmlPath, 'hallowelt.xml');
 
-	    echo "numfiles: " . $zip->numFiles . "\n";
-	    echo "status:" . $zip->status . "\n";
+	    echo sprintf(BR.'ZIP: %d files, Status: %d'.BR, $zip->numFiles, $zip->status);
 	    $zip->close();
 
 	    echo '<hr />';
@@ -175,6 +181,13 @@ th.cell {
 
 	function getSyms($projectDir)
 	{
+	    $filename = PATH_SOURCES.DS.$projectDir.DS.'links';
+
+	    if( ! file_exists($filename))
+	    {
+	        return false;
+	    }
+
 	    $lines = file(PATH_SOURCES.DS.$projectDir.DS.'links');
 
 	    $syms = array();
@@ -199,5 +212,5 @@ th.cell {
 	    }//foreach
 
 	    return $links;
-		}//function
+	}//function
 

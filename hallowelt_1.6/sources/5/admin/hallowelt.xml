@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<extension type="component" version="1.6.0">
- 
+<extension type="component" version="1.6.0" method="upgrade">
+
     <name>Hallo Welt !</name>
     <creationDate>Erstellungsdatum</creationDate>
     <author>Max Mustermann</author>
@@ -9,9 +9,9 @@
     <authorUrl>http://www.example.org</authorUrl>
     <copyright>Copyright Info</copyright>
     <license>Lizenz Info</license>
-    <version>0.0.1</version>
+    <version>0.0.5</version>
     <description>Beschreibung der Komponente</description>
- 
+
     <update>
         <schemas>
             <schemapath type="mysql">sql/updates/mysql</schemapath>
@@ -19,7 +19,11 @@
     </update>
 
     <files folder="site">
+        <folder>models</folder>
+        <folder>views</folder>
+ 
         <filename>hallowelt.php</filename>
+        <filename>controller.php</filename>
     </files>
  
     <administration>
@@ -31,5 +35,4 @@
             <filename>hallowelt.php</filename>
         </files>        
     </administration>
- 
 </extension>

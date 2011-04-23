@@ -2,4 +2,4 @@
 // Den direkten Aufruf verbieten
 defined('_JEXEC') or die;
 
-echo 'Hallo Welt Admin';
+echo 'Hallo Welt ! - Admin';
