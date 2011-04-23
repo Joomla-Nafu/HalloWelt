@@ -68,10 +68,12 @@ class FileInfo
             return false;
         }
 
-        $parts = explode(DS, $dest);
-        array_pop($parts);
+        $tmpDest = str_replace(ROOT_PATH.DS, '', $dest);
 
-        $p = '';
+        $parts = explode(DS, $tmpDest);
+        array_pop($parts);
+var_dump($parts);
+        $p = ROOT_PATH;
 
         foreach ($parts as $part)
         {
@@ -79,15 +81,15 @@ class FileInfo
             continue;
 
             $p .= DS.$part;
-            
-            $p = trim($p, DS);
 
             if( ! is_dir($p))
             {
+                echo 'making: '.$p.BR;
                 mkdir($p);
             }
         }
-
+echo BR.'SRC: '.$src;
+echo BR.'DST: '.$dest.BR;
         copy($src, $dest);
     }//function
 
