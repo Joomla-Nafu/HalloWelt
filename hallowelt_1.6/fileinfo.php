@@ -72,7 +72,7 @@ class FileInfo
 
         $parts = explode(DS, $tmpDest);
         array_pop($parts);
-var_dump($parts);
+
         $p = ROOT_PATH;
 
         foreach ($parts as $part)
@@ -84,12 +84,10 @@ var_dump($parts);
 
             if( ! is_dir($p))
             {
-                echo 'making: '.$p.BR;
                 mkdir($p);
             }
         }
-echo BR.'SRC: '.$src;
-echo BR.'DST: '.$dest.BR;
+
         copy($src, $dest);
     }//function
 
