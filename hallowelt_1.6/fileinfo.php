@@ -69,13 +69,14 @@ class FileInfo
         }
 
         $parts = explode(DS, $dest);
-
+var_dump($parts);
         array_pop($parts);
 
-        $p = '';//@todo C:\\ ???¿¿
+        $p = '';//$parts[0];//'';//@todo C:\\ ???¿¿
 
         foreach ($parts as $part)
         {
+        	echo BR.$part.BR;
             if( ! $part)
             continue;
 
@@ -83,6 +84,7 @@ class FileInfo
 
             if( ! is_dir($p))
             {
+            	echo $p;
                 mkdir($p);
             }
         }

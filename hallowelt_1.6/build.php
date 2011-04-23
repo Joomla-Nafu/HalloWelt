@@ -13,8 +13,8 @@ define('DS', DIRECTORY_SEPARATOR);
 
 define('BR', '<br />');
 
-define('ROOT_PATH', dirname($_SERVER['SCRIPT_FILENAME']));
-
+define('ROOT_PATH', str_replace('/', DS, dirname($_SERVER['SCRIPT_FILENAME'])));
+var_dump(ROOT_PATH);
 define('PATH_SOURCES', ROOT_PATH.DS.'sources');
 define('PATH_BUILD', ROOT_PATH.DS.'builds');
 
