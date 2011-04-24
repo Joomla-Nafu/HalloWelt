@@ -2,7 +2,7 @@
 
 <extension type="component" version="1.6.0" method="upgrade">
 
-    <name>Hallo Welt !</name>
+    <name>COM_HELLOWORLD</name>
     <creationDate>Erstellungsdatum</creationDate>
     <author>Max Mustermann</author>
     <authorEmail>max.mustermann@example.org</authorEmail>
@@ -10,7 +10,7 @@
     <copyright>Copyright Info</copyright>
     <license>Lizenz Info</license>
     <version>0.0.10</version>
-    <description>Beschreibung der Komponente</description>
+    <description>COM_HALLOWELT_DESCRIPTION</description>
 
     <install>
         <sql>

@@ -17,8 +17,8 @@ class HalloWeltTableHalloWelt extends JTable
      * @param	string Name of the primary key field in the table.
      * @param	object JDatabase connector object.
      */
-    function __construct($table = '#__hallowelt', $key = 'id', &$db)
+    function __construct(&$db)
     {
-        parent::__construct($table, $key, $db);
+        parent::__construct('#__hallowelt', 'id', $db);
     }
 }

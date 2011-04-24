@@ -4,8 +4,8 @@
         <field name="id" type="hidden" />
  
         <field name="greeting" type="text"
-            label="COM_HALLOWELT_HALLOWELT_GREETING_LABEL"
-            description="COM_HALLOWELT_HALLOWELT_GREETING_DESC"
+            label="COM_HALLOWELT_HALLOWELT_FIELD_GREETING_LABEL"
+            description="COM_HALLOWELT_HALLOWELT_FIELD_GREETING_DESC"
             size="40" class="inputbox" default="" />
     </fieldset>
 </form>
