@@ -102,6 +102,52 @@ class HWBuilder
         $this->basePath = $IP.'/sources/hallowelt';
     }
 
+    public function display($input)
+    {
+        $dirtyPath = $input;
+
+        $cleanPath = str_replace('..', '', $dirtyPath);
+
+        //@todo - clean the path even more ;)
+
+        $path = $this->basePath.'/'.$cleanPath;
+
+        if( ! file_exists($path))
+        throw new Exception('HalloWelt Source not found :( ');//.$path);
+
+        if( ! class_exists('GeSHi'))
+        {
+            require_once $this->IP.'/extensions/SyntaxHighlight_GeSHi/geshi/geshi.php';
+
+            if( ! class_exists('GeSHi'))
+            throw new Exception('GeSHi not found :(');
+        }
+
+        $lines = file($path);
+
+        $cleanLines = array();
+
+        foreach ($lines as $line)
+        {
+            $line = rtrim($line);
+            $cleanLines[] = $line;
+        }//foreach
+
+        $ext = substr($path, strrpos($path, '.'));
+
+        $geshi = new GeSHi(implode("\n", $cleanLines), $ext);
+
+        // $geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
+        //            $geshi->start_line_numbers_at($start);
+        // $geshi->set_line_style('background: #fcfcfc;', 'background: #f0f0f0;');
+
+        setupGeSHiForJoomla($geshi);
+
+        $parsedCode = $geshi->parse_code();
+
+        return $parsedCode;
+    }//function
+
     public function update($input)
     {
         $parts = explode('/', $input);
@@ -150,16 +196,10 @@ class HWBuilder
 
             if('directory' == $file['type'])
             {
-
-                //echo BR.'Dir: '.$file['path'];
-                //echo BR.'Dir: '.$path;
-
                 $this->Checkout($file['path']);
 
                 continue;
             }
-
-            //            var_dump($file);
 
             $parts = explode('/', $file['path']);
 
@@ -167,11 +207,9 @@ class HWBuilder
 
             $contents = $svnClient->getFile($fileName);
 
-            //            var_dump($contents);
-
             $path = substr($file['path'], strlen($iniDir) + 1);
+
             $this->writeFile($path, $contents);
-            //die();
         }
 
         return true;
@@ -180,6 +218,7 @@ class HWBuilder
     private function writeFile($path, $contents)
     {
         $parts = explode(DS, $path);
+
         array_pop($parts);
 
         $p = $this->basePath.'/'.$this->project;
@@ -192,60 +231,12 @@ class HWBuilder
             $p .= '/'.$part;
 
             if( ! is_dir($p))
-            {
-                mkdir($p);
-            }
+            mkdir($p);
         }//foreach
 
         $handle = fopen($this->basePath.'/'.$this->project.'/'.$path, 'w');
 
         fwrite($handle, $contents);
-    }//function
-
-    public function display($input)
-    {
-        $dirtyPath = $input;
-
-        $cleanPath = str_replace('..', '', $dirtyPath);
-
-        //@todo - clean the path even more ;)
-
-        $path = $this->basePath.'/'.$cleanPath;
-
-        if( ! file_exists($path))
-        throw new Exception('HalloWelt Source not found :( ');//.$path);
-
-        if( ! class_exists('GeSHi'))
-        {
-            require_once $this->IP.'/extensions/SyntaxHighlight_GeSHi/geshi/geshi.php';
-
-            if( ! class_exists('GeSHi'))
-            throw new Exception('GeSHi not found :(');
-        }
-
-        $lines = file($path);
-
-        $cleanLines = array();
-
-        foreach ($lines as $line)
-        {
-            $line = rtrim($line);
-            $cleanLines[] = $line;
-        }//foreach
-
-        $ext = substr($path, strrpos($path, '.'));
-
-        $geshi = new GeSHi(implode("\n", $cleanLines), $ext);
-
-        // $geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
-        //            $geshi->start_line_numbers_at($start);
-        // $geshi->set_line_style('background: #fcfcfc;', 'background: #f0f0f0;');
-
-        setupGeSHiForJoomla($geshi);
-
-        $parsedCode = $geshi->parse_code();
-
-        return $parsedCode;
     }//function
 }//class
 
@@ -270,46 +261,3 @@ function fnHalloWeltOutputHook( &$m_pageObj, $m_parserOutput ) {
     //-- Be nice:
     return true;
 }//function
-
-/**
- * Joomla Classes for GeSHi
- * @param $geshi object GeSHi
- * @return void
- */
-function xsetupGeSHiForJoomla($geshi
-, $uri='http://wiki.joomla-nafu.de/joomla-dokumentation/Joomla!_Programmierung/Framework/')
-{
-    $JClasses = array('JFrameworkConfig', 'JFactory', 'JRoute', 'JText', 'JApplication', 'JController'
-    , 'JComponentHelper', 'JModel', 'JView', 'JApplicationHelper', 'JMenu', 'JModuleHelper', 'JPathway', 'JRouter'
-    , 'JTree', 'JNode', 'JCache', 'JCacheCallback', 'JCacheOutput', 'JCachePage', 'JCacheView', 'JCacheStorage'
-    , 'JCacheStorageApc', 'JCacheStorageEaccelerator', 'JCacheStorageFile', 'JCacheStorageMemcache'
-    , 'JCacheStorageXCache', 'JFTP', 'JClientHelper', 'JLDAP', 'JDatabase', 'JDatabaseMySQL', 'JDatabaseMySQLi'
-    , 'JRecordSet', 'JTable', 'JTableARO', 'JTableAROGroup', 'JTableCategory', 'JTableComponent', 'JTableContent'
-    , 'JTableMenu', 'JTableMenuTypes', 'JTableModule', 'JTablePlugin', 'JTableSection', 'JTableSession', 'JTableUser'
-    , 'JDocument', 'JDocumentError', 'JDocumentFeed', 'JFeedItem', 'JFeedEnclosure', 'JFeedImage'
-    , 'JDocumentRendererAtom', 'JDocumentRendererRSS', 'JDocumentHTML', 'JDocumentRendererComponent'
-    , 'JDocumentRendererHead', 'JDocumentRendererMessage', 'JDocumentRendererModule', 'JDocumentRendererModules'
-    , 'JDocumentPDF', 'JDocumentRAW', 'JBrowser', 'JResponse', 'JURI', 'JError', 'JException', 'JLog', 'JProfiler'
-    , 'JDispatcher', 'JArchive', 'JArchiveBzip2', 'JArchiveGzip', 'JArchiveTar', 'JArchiveZip', 'JFile', 'JFolder'
-    , 'JPath', 'JFilterInput', 'JFilterOutput', 'JEditor', 'JHTML', 'JHTMLBehavior', 'JHTMLContent', 'JHTMLEmail'
-    , 'JHTMLForm', 'JHTMLGrid', 'JHTMLImage', 'JHTMLList', 'JHTMLMenu', 'JHTMLSelect', 'JPagination'
-    , 'JPaginationObject', 'JPane', 'JPaneTabs', 'JPaneSliders', 'JParameter', 'JElement', 'JElementCalendar'
-    , 'JElementCategory', 'JElementEditors', 'JElementFilelist', 'JElementFolderlist', 'JElementHelpsites'
-    , 'JElementHidden', 'JElementImageList', 'JElementLanguages', 'JElementList', 'JElementMenu', 'JElementMenuItem'
-    , 'JElementPassword', 'JElementRadio', 'JElementSection', 'JElementSpacer', 'JElementSQL', 'JElementText'
-    , 'JElementTextarea', 'JElementTimezones', 'JElementUserGroup', 'JToolBar', 'JButton', 'JButtonConfirm'
-    , 'JButtonCustom', 'JButtonHelp', 'JButtonLink', 'JButtonPopup', 'JButtonSeparator', 'JButtonStandard'
-    , 'JInstallerComponent', 'JInstallerLanguage', 'JInstallerModule', 'JInstallerPlugin', 'JInstallerTemplate'
-    , 'JInstallerHelper', 'JInstaller', 'JHelp', 'JLanguageHelper', 'JLanguage', 'JMailHelper', 'JMail'
-    , 'JPluginHelper', 'JPlugin', 'JRegistryFormat', 'JRegistryFormatINI', 'JRegistryFormatPHP', 'JRegistryFormatXML'
-    , 'JSession', 'JSessionStorage', 'JSessionStorageApc', 'JSessionStorageDatabase', 'JSessionStorageEaccelerator'
-    , 'JSessionStorageMemcache', 'JSessionStorageNone', 'JSessionStorageXcache', 'patTemplate_Function_Sef'
-    , 'patTemplate_Function_Translate', 'patTemplate_Modifier_SEF', 'patTemplate_Modifier_Translate', 'JTemplate'
-    , 'JAuthentication', 'JAuthenticationResponse', 'JAuthorization', 'JUserHelper', 'JUser', 'JArrayHelper'
-    , 'JBuffer', 'JDate', 'JSimpleCrypt', 'JSimpleXML', 'JSimpleXMLElement', 'JString', 'JUtility', 'JObject'
-    , 'JObservable', 'JObserver', 'JDocumentRenderer', 'JRequest', 'JEvent', 'JRegistry', 'JVersion'
-    );
-
-    $geshi->add_keyword_group(10, 'color: #600000; border-bottom: 1px dashed gray;', true, $JClasses);
-    $geshi->set_url_for_keyword_group(10, $uri.'{FNAME}');
-}//functopn
