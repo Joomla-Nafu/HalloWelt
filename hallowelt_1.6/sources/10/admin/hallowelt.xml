@@ -2,7 +2,7 @@
 
 <extension type="component" version="1.6.0" method="upgrade">
 
-    <name>COM_HELLOWORLD</name>
+    <name>COM_HALLOWELT</name>
     <creationDate>Erstellungsdatum</creationDate>
     <author>Max Mustermann</author>
     <authorEmail>max.mustermann@example.org</authorEmail>
