@@ -2,24 +2,24 @@
 9/admin/controllers/hallowelt.php
 9/admin/controllers/halloweltlist.php
 
-12/admin/helpers/hallowelt.php
+14/admin/helpers/hallowelt.php
 
 12/admin/models/fields/hallowelt.php
 13/admin/models/forms/hallowelt.xml
 11/admin/models/forms/hallowelt.js
 11/admin/models/rules/greeting.php
 7/admin/models/halloweltlist.php
-11/admin/models/hallowelt.php
+14/admin/models/hallowelt.php
 
 13/admin/views/hallowelt/tmpl/edit.php
 11/admin/views/hallowelt/submitbutton.js
-11/admin/views/hallowelt/view.html.php
+14/admin/views/hallowelt/view.html.php
 
 9/admin/views/halloweltlist/tmpl/default.php
 7/admin/views/halloweltlist/tmpl/default_body.php
 7/admin/views/halloweltlist/tmpl/default_foot.php
 7/admin/views/halloweltlist/tmpl/default_head.php
-13/admin/views/halloweltlist/view.html.php
+14/admin/views/halloweltlist/view.html.php
 
 1/admin/sql/updates/mysql/0.0.1.sql
 6/admin/sql/updates/mysql/0.0.6.sql
@@ -28,11 +28,12 @@
 13/admin/sql/install.mysql.utf8.sql
 6/admin/sql/uninstall.mysql.utf8.sql
 
-13/admin/tables/hallowelt.php
+14/admin/tables/hallowelt.php
 
-13/admin/config.xml
+14/admin/access.xml
+14/admin/config.xml
 12/admin/controller.php
-12/admin/hallowelt.php
+14/admin/hallowelt.php
 
 13/admin/language/de-DE/de-DE.com_hallowelt.ini
 8/admin/language/de-DE/de-DE.com_hallowelt.sys.ini

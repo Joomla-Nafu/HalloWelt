@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<extension type="component" version="1.6.0" method="upgrade">
+
+    <name>COM_HALLOWELT</name>
+    <creationDate>Erstellungsdatum</creationDate>
+    <author>Max Mustermann</author>
+    <authorEmail>max.mustermann@example.org</authorEmail>
+    <authorUrl>http://www.example.org</authorUrl>
+    <copyright>Copyright Info</copyright>
+    <license>Lizenz Info</license>
+    <version>0.0.14</version>
+    <description>COM_HALLOWELT_DESCRIPTION</description>
+
+    <install>
+        <sql>
+            <file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
+        </sql>
+    </install>
+ 
+    <uninstall>
+        <sql>
+            <file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
+        </sql>
+    </uninstall>
+
+    <update>
+        <schemas>
+            <schemapath type="mysql">sql/updates/mysql</schemapath>
+        </schemas>
+    </update>
+
+    <files folder="site">
+    	<folder>language</folder>
+        <folder>models</folder>
+        <folder>views</folder>
+ 
+        <filename>controller.php</filename>
+        <filename>hallowelt.php</filename>
+    </files>
+ 
+    <media destination="com_hallowelt" folder="media">
+        <folder>images</folder>
+    </media>
+
+    <administration>
+        <menu img="../media/com_hallowelt/images/tux-16x16.png">COM_HALLOWELT_MENU</menu>
+ 
+        <files folder="admin">
+            <folder>controllers</folder>
+            <folder>helpers</folder>
+            <folder>language</folder>
+            <folder>models</folder>
+            <folder>sql</folder>
+            <folder>tables</folder>
+            <folder>views</folder>
+
+            <filename>access.xml</filename>
+            <filename>config.xml</filename>
+            <filename>controller.php</filename>
+            <filename>hallowelt.php</filename>
+        </files>        
+    </administration>
+</extension>

@@ -1,6 +1,7 @@
 @version SVN $Id$
 
-Nach dem SVN checkout muss das Verzeichnis in ein Webverzeichnis verschoben werden, oder der checkout gleich in einem Webverzeichnis vorgenommen werden. (@todo Konsole)
+Nach dem SVN checkout muss das Verzeichnis in ein Webverzeichnis verschoben (exportiert) werden.
+Alternativ kannr der Checkout auch gleich in einem Webverzeichnis vorgenommen werden. (@todo Konsole)
 
 Danach muss (im Browser) die Datei build.php aufgerufen werden (@todo oder in der Konsole).
 
