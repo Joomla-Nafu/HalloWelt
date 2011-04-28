@@ -327,7 +327,7 @@ class phpsvnclient {
         #$url = $this->cleanURL($this->_url."/!svn/bc/".$version."/".$file."/");//CHG NiK
         $url =
         $url = $this->cleanURL($this->_url."/".$file);//CHG NiK
-        echo '<h1>'.$url.'</h1>';
+//        echo '<h1>'.$url.'</h1>';
         $this->initQuery($args,"GET",$url);
         if ( ! $this->Request($args, $headers, $body) )
         return false;

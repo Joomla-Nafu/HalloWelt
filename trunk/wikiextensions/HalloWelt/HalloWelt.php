@@ -60,13 +60,17 @@ function renderHalloWelt($input, $argv, &$parser)
 
     try
     {
-        $hwBuilder = new HWBuilder($IP);
+        $hwBuilder = new HWBuilder($IP, $parser);
 
         if(0 === strpos($input, 'update'))
         {
             $hwBuilder->update($input);
 
             return 'HalloWelt sources has been updated :)';
+        }
+        else if(0 === strpos($input, 'tree'))
+        {
+            return $hwBuilder->tree($input);
         }
 
         $code = $hwBuilder->display($input);
@@ -95,9 +99,12 @@ class HWBuilder
 
     private $project = '';
 
-    public function __construct($IP)
+    private $projectSub = '';
+
+    public function __construct($IP, $parser)
     {
         $this->IP = $IP;
+        $this->parser = $parser;
 
         $this->basePath = $IP.'/sources/hallowelt';
     }
@@ -152,30 +159,35 @@ class HWBuilder
     {
         $parts = explode('/', $input);
 
-        if(2 != count($parts))
+        array_shift($parts);
+
+        $this->project = $parts[0];
+
+        if(count($parts > 1))
+        $this->projectSub = $parts[1];
+
+        if( ! $this->project)
         throw new Exception('Please specify as: "update/VERSION"');
 
-        $this->project = $parts[1];
-
-        $base = $this->basePath.'/'.$parts[1];
-
-        if( ! file_exists($base))
+        if( ! file_exists($this->basePath.'/'.$this->project))
         throw new Exception('HalloWelt: Invalid Project Dir ');
 
         require_once $this->IP.'/extensions/HalloWelt/svnclient/phpsvnclient.php';
 
-        $subDir = 'hallowelt_1.6';
-
-        return $this->checkout($this->project);
+        return $this->checkout();
     }//function
 
-    private function checkout($subDir)
+    private function checkout($subDir = '')
     {
         static $iniDir = '';
 
         if( ! $iniDir)
         {
-            $subDir = 'hallowelt_'.$subDir.'/sources';//@todo temp
+            $subDir = 'hallowelt_'.$this->project.'/sources';//@todo temp
+
+            if($this->projectSub)
+            $subDir .= '/'.$this->projectSub;
+
             $iniDir = $subDir;
         }
 
@@ -221,7 +233,17 @@ class HWBuilder
 
         array_pop($parts);
 
-        $p = $this->basePath.'/'.$this->project;
+        $base = $this->basePath.'/'.$this->project;
+
+        if($this->projectSub)
+        {
+            $base .= '/'.$this->projectSub;
+
+            if( ! is_dir($base))
+            mkdir($base);
+        }
+
+        $p = $base;
 
         foreach ($parts as $part)
         {
@@ -234,10 +256,98 @@ class HWBuilder
             mkdir($p);
         }//foreach
 
-        $handle = fopen($this->basePath.'/'.$this->project.'/'.$path, 'w');
+        $handle = fopen($base.'/'.$path, 'w');
 
         fwrite($handle, $contents);
     }//function
+
+    public function tree($input)
+    {
+        $parts = explode('/', $input);
+
+        array_shift($parts);
+
+        $this->project = $parts[0];
+
+        if(count($parts > 1))
+        $this->projectSub = $parts[1];
+
+        $base = $this->basePath.'/'.$this->project;
+
+        if($this->projectSub)
+        {
+            $base .= '/'.$this->projectSub;
+
+            if( ! is_dir($base))
+            throw new Exception('Project dir not found for tree');
+        }
+
+        if( ! file_exists($base.'/links'))
+        throw new Exception('Link list not found for tree');
+
+
+        $lines = file($base.'/links');
+
+        $output = array();
+$output[] = print_r($lines, 1);
+       // $output[] = 'Project'.$this->project;
+
+    //    $output[] = $base.'/links';
+
+$items = array();
+
+$i = 0;
+
+foreach ($lines as $line)
+{
+    $line = trim($line);
+
+    if( ! $line
+    || 0 === strpos($line, '#'))
+    continue;
+
+    $parts = explode('/', $line);
+
+    $items[$i] = array();
+
+    foreach ($parts as $part)
+    {
+        $items[$i][$part] = array();
+    }
+
+    $i ++;
+}
+    $output[] = print_r($items, 1);
+
+
+
+        $output[] = '== Das Installationspaket ==';
+$output[] = 'Der Inhalt des [[Teil_01#Ein_Installationspaket_erstellen|Codeverzeichnisses]] außerhalb Ihrer Komponente.';
+/*
+*/
+
+$output[] = '{| class="dirtree"';
+$output[] = '|-';
+$output[] = '|{{file|hallowelt_paket|zip}}';
+
+    foreach ($lines as $line)
+{
+
+    $output[] = '|-';
+//    $output[] = '| '.$line;
+    $output[] = '|{{tree|T}}{{file|[[Teil_xx|'.$line.']]}}';
+}
+
+$output[] = '|-';
+$output[] = '|{{tree|L}}{{file|[[#ADMIN/hallowelt.xml|hallowelt.xml]]}}';
+
+$output[] = '|}';
+$output = implode("\n", $output);
+
+                $output = $this->parser->recursiveTagParse($output);
+        return $output;
+
+    }
 }//class
 
 /**
