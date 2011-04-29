@@ -423,7 +423,9 @@ class HWBuilder
             $ext = substr($file, strrpos($file, '.') + 1);
             $path = implode('/', $parts);
 
-            $output[] = $s."{{file|[[{$this->baseUriHW}/Teil_$chapter#$scope/$path/$file|$file]]|$ext}}";
+            $filePath =($path) ? $path.'/'.$file : $file;
+
+            $output[] = $s."{{file|[[{$this->baseUriHW}/Teil_$chapter#$scope/$filePath|$file]]|$ext}}";
         }//foreach
 
         return $output;
