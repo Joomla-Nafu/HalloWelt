@@ -72,6 +72,10 @@ function renderHalloWelt($input, $argv, &$parser)
         {
             return $hwBuilder->tree($input);
         }
+        else if(0 === strpos($input, 'projecttree'))
+        {
+            return $hwBuilder->tree($input, true);
+        }
 
         $code = $hwBuilder->display($input);
 
@@ -96,6 +100,8 @@ class HWBuilder
     private $basePath = '';
 
     private $baseUri = 'http://joomlacode.org/svn/nafuwiki/';
+
+    private $baseUriHW = 'Joomla!_Programmierung/Programmierung/Hallo_Welt_J1.6';
 
     private $project = '';
 
@@ -261,7 +267,7 @@ class HWBuilder
         fwrite($handle, $contents);
     }//function
 
-    public function tree($input)
+    public function tree($input, $projectOnly = false)
     {
         $parts = explode('/', $input);
 
@@ -289,64 +295,216 @@ class HWBuilder
         $lines = file($base.'/links');
 
         $output = array();
-$output[] = print_r($lines, 1);
-       // $output[] = 'Project'.$this->project;
+        //$output[] = print_r($lines, 1);
+        // $output[] = 'Project'.$this->project;
 
-    //    $output[] = $base.'/links';
+        //    $output[] = $base.'/links';
 
-$items = array();
+        $items = array();
 
-$i = 0;
+        $i = 0;
 
-foreach ($lines as $line)
-{
-    $line = trim($line);
+        foreach ($lines as $line)
+        {
+            $line = trim($line);
 
-    if( ! $line
-    || 0 === strpos($line, '#'))
-    continue;
+            if( ! $line
+            || 0 === strpos($line, '#'))
+            continue;
 
-    $parts = explode('/', $line);
+            $parts = explode('/', $line);
 
-    $items[$i] = array();
+            $projectNum = array_shift($parts);
 
-    foreach ($parts as $part)
-    {
-        $items[$i][$part] = array();
-    }
+            if($projectOnly
+            && $projectNum != $this->projectSub)
+            continue;
 
-    $i ++;
-}
-    $output[] = print_r($items, 1);
+            $fileName = implode('/', $parts);
 
+            $XfileName = array_pop($parts);
 
+            $s = implode("']['", $parts);
 
-        $output[] = '== Das Installationspaket ==';
-$output[] = 'Der Inhalt des [[Teil_01#Ein_Installationspaket_erstellen|Codeverzeichnisses]] außerhalb Ihrer Komponente.';
-/*
-*/
+            /*
+             * eval is EVAL :|
+             */
 
-$output[] = '{| class="dirtree"';
-$output[] = '|-';
-$output[] = '|{{file|hallowelt_paket|zip}}';
+            eval("if( ! isset(\$items['".$s."'])) \$items['".$s."'] = array();");
 
-    foreach ($lines as $line)
-{
+            eval("\$items['".$s."'][] = '$projectNum/$fileName';");
+        }//foreach
 
-    $output[] = '|-';
-//    $output[] = '| '.$line;
-    $output[] = '|{{tree|T}}{{file|[[Teil_xx|'.$line.']]}}';
-}
+        //$output[] = print_r($items, 1);
 
-$output[] = '|-';
-$output[] = '|{{tree|L}}{{file|[[#ADMIN/hallowelt.xml|hallowelt.xml]]}}';
+        //        $output[] = '== Das Installationspaket ==';
+        //        $output[] = 'Der Inhalt des [[Teil_01#Ein_Installationspaket_erstellen|Codeverzeichnisses]] außerhalb Ihrer Komponente.';
 
-$output[] = '|}';
-$output = implode("\n", $output);
+        $lines = $this->drawTreeLine($items);
+        //$output[] = print_r($lines, 1);
 
-                $output = $this->parser->recursiveTagParse($output);
+        $output[] = '{| class="dirtree"';
+        $output[] = '|-';
+        $output[] = '|{{file|hallowelt_paket|zip}}';
+
+        $output = array_merge($output, $lines);
+
+        $output[] = '|-';
+        $output[] = '|{{tree|L}}{{file|[[#ADMIN/hallowelt.xml|hallowelt.xml]]|xml}}';
+
+        $output[] = '|}';
+
+        $output = implode("\n", $output);
+
+        $output = $this->parser->recursiveTagParse($output);
         return $output;
 
+    }//function
+
+    private function drawTreeLine($items, $level = 0, $levels = array())
+    {
+        static $output = array();
+
+        static $levels = array();
+
+        $fileCount = 0;
+        $folderCount = 0;
+
+        foreach ($items as $folder => $subItems)
+        {
+            if(is_array($subItems))
+            {
+                $output[] = '|-';
+
+                $s = '';
+                $s .= '|';
+
+                if($level == 0)
+                {
+                    $s .= '{{tree|T}}';
+                }
+                else
+                {
+                    $s .= '{{tree|V}}';
+
+
+                    $folderCount ++;
+                    $s .= $this->treeDetectLevel($levels, 0, $folderCount);
+                }
+
+                $output[] = $s.'{{folder|'.$folder.'}}';
+
+                $levels[$level] = count($subItems);
+
+                $this->drawTreeLine($subItems, $level + 1, $levels);
+
+                unset($levels[$level]);
+
+                continue;
+            }
+
+            $fileCount ++;
+
+            $levels[$level - 1] = $this->treeFileCount($items);
+
+            $output[] = '|-';
+
+            $s = '';
+            $s .= '|';
+            $s .= '{{tree|V}}';
+
+            $s .= $this->treeDetectLevel($levels, $fileCount, $folderCount);
+
+            $parts = explode('/', $subItems);
+
+            $chapter = sprintf('%02d', array_shift($parts));
+            $scope = strtoupper(array_shift($parts));
+            $file = array_pop($parts);
+            $ext = substr($file, strrpos($file, '.') + 1);
+            $path = implode('/', $parts);
+
+            $output[] = $s."{{file|[[{$this->baseUriHW}/Teil_$chapter#$scope/$path/$file|$file]]|$ext}}";
+        }//foreach
+
+        return $output;
+    }//function
+
+    private function treeFileCount($items)
+    {
+        $i = 0;
+
+        foreach ($items as $item)
+        {
+            if( ! is_array($item))
+            $i ++;
+        }//foreach
+
+        return $i;
+    }//function
+
+    private function treeDetectLevel($levels, $fileCount = 0, $folderCount = 0)
+    {
+        $s = '';
+        $i = 1;
+
+        foreach ($levels as $xxx => $l)
+        {
+            if($l > 1)
+            {
+                if($i == count($levels))
+                {
+                    if($fileCount)
+                    {
+                        if($fileCount == $l)
+                        {
+                            $s .= '{{tree|L}}';
+                        }
+                        else
+                        {
+                            $s .= '{{tree|T}}';
+                        }
+                    }
+                    else
+                    {
+                        $s .= '{{tree|T}}';
+                    }
+                }
+                else
+                {
+                    if($folderCount)
+                    {
+                        if($folderCount == $l)
+                        {
+                            $s .= '{{tree|L}}';
+                        }
+                        else
+                        {
+                            $s .= '{{tree|V}}';
+                        }
+                    }
+                    else
+                    {
+                        $s .= '{{tree|V}}';
+                    }
+                }
+            }
+            else
+            {
+                if($i == count($levels))
+                {
+                    $s .= '{{tree|L}}';
+
+                }
+                else
+                {
+                    $s .= '{{tree|S}}';
+                }
+            }
+
+            $i ++;
+        }//foreach
+
+        return $s;
     }
 }//class
 

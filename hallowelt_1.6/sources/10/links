@@ -2,6 +2,11 @@
 9/admin/controllers/hallowelt.php
 9/admin/controllers/halloweltlist.php
 
+10/admin/language/de-DE/de-DE.com_hallowelt.ini
+8/admin/language/de-DE/de-DE.com_hallowelt.sys.ini
+10/admin/language/en-GB/en-GB.com_hallowelt.ini
+8/admin/language/en-GB/en-GB.com_hallowelt.sys.ini
+
 6/admin/models/fields/hallowelt.php
 9/admin/models/forms/hallowelt.xml
 7/admin/models/halloweltlist.php
@@ -26,23 +31,18 @@
 7/admin/hallowelt.php
 7/admin/controller.php
 
-10/admin/language/de-DE/de-DE.com_hallowelt.ini
-8/admin/language/de-DE/de-DE.com_hallowelt.sys.ini
-10/admin/language/en-GB/en-GB.com_hallowelt.ini
-8/admin/language/en-GB/en-GB.com_hallowelt.sys.ini
-
 ### SITE
+8/site/language/en-GB/en-GB.com_hallowelt.ini
+8/site/language/de-DE/de-DE.com_hallowelt.ini
+
 6/site/models/hallowelt.php
 
-4/site/views/hallowelt/view.html.php
 2/site/views/hallowelt/tmpl/default.php
 6/site/views/hallowelt/tmpl/default.xml
+4/site/views/hallowelt/view.html.php
 
 2/site/hallowelt.php
 2/site/controller.php
-
-8/site/language/en-GB/en-GB.com_hallowelt.ini
-8/site/language/de-DE/de-DE.com_hallowelt.ini
 
 ### MEDIA
 10/media/images/tux-16x16.png

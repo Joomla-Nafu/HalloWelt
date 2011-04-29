@@ -5,9 +5,9 @@
 ### SITE
 4/site/models/hallowelt.php
 
-4/site/views/hallowelt/view.html.php
 2/site/views/hallowelt/tmpl/default.php
 3/site/views/hallowelt/tmpl/default.xml
+4/site/views/hallowelt/view.html.php
 
 2/site/hallowelt.php
 2/site/controller.php
