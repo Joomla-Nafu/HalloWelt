@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="template" version="1.6">
+  <name>BluePrint</name>
+  <creationDate>22-May-2011</creationDate>
+  <author>Joomla-Nafu.de</author>
+  <authorEmail>info@joomla-nafu.de</authorEmail>
+  <authorUrl>http://joomla-nafu.de</authorUrl>
+  <copyright>Feel FREE</copyright>
+  <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+  <version>1.0</version>
+  <description>Ein einfaches BluePrint Template</description>
+  <files folder="site">
+    <folder>css</folder>
+    <folder>html</folder>
+    <folder>js</folder>
+    <folder>language</folder>
+    <filename>CHANGELOG.php</filename>
+    <filename>component.php</filename>
+    <filename>error.php</filename>
+    <filename>favicon.ico</filename>
+    <filename>index.php</filename>
+    <filename>templateDetails.xml</filename>
+    <filename>template_preview.png</filename>
+    <filename>template_thumbnail.png</filename>
+  </files>
+  <params/>
+  <config>
+    <fields name="params">
+      <fieldset name="advanced">
+        <field name="sitetitle" type="text" default="" label="Site title" description="The title of the site" filter="string" />
+          <field name="sitedescription" type="text" default="" label="Site description" description="The description of the site" filter="string" />
+      </fieldset>
+    </fields>
+  </config>
+  <positions>
+    <position>menu</position>
+    <position>debug</position>
+    <position>position-0</position>
+    <position>position-1</position>
+    <position>position-2</position>
+    <position>position-3</position>
+    <position>position-4</position>
+    <position>position-5</position>
+    <position>position-6</position>
+    <position>position-7</position>
+    <position>position-8</position>
+    <position>position-9</position>
+    <position>position-10</position>
+    <position>position-11</position>
+    <position>position-12</position>
+    <position>position-13</position>
+    <position>position-14</position>
+    <position>position-15</position>
+  </positions>
+</extension>
