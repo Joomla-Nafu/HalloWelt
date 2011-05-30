@@ -1,3 +1,12 @@
+/**
+ * @version SVN: $Id$
+ * @package    BluePrint
+ * @subpackage Base
+ * @author     Joomla-Nafu.de {@link http://joomla-nafu.de}
+ * @author     Created on 22-May-2011
+ * @license    GNU/GPL
+ */
+
 body { /* ist der ganze Bildschirm */
    background-color: #0000CD; /* Hintergrundfarbe */
    color: Black; /* Schriftfarbe */
@@ -47,6 +56,20 @@ body { /* ist der ganze Bildschirm */
    float: right; /* Setzt den Slice nach rechts */
    width: 395px;
 }
+
+ul {	    
+margin: 0 0 0 15px;
+padding: 0;
+}
+li{}
+
+/* einzelnen Menüpunkten unterschiedliches Aussehen geben */
+/* Was in Joomla!1.5.xx so beschrieben wurde: */
+
+
+#rechts li.item1 a {background-color: black;}								
+#rechts li.item1 a:hover, #rechts li.item1 a:active {background-color: green;}	
+
 
 /*****************************************/
    /*** Joomla! specific content elements ***/
