@@ -1,4 +1,11 @@
-##*HEADER*##
+/**
+ * @version SVN: $Id: template.css 18 2010-11-08 01:10:19Z elkuku $
+ * @package    kms-blueprint
+ * @subpackage Base
+ * @author     K.-Michael Siebenlist {@link http://www.kms-net.de}
+ * @author     Created on 27-May-2011
+ * @license    GNU/GPL
+ */
 
 body {                                                  /* ist der ganze Bildschirm */
 background-color: #0000CD;                              /* Hintergrundfarbe */
