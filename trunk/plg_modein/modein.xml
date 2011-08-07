@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE install PUBLIC "-//Joomla! 1.5//DTD plugin 1.0//EN"
+"http://joomla.org/xml/dtd/1.5/plugin-install.dtd">
+<install type="plugin" version="1.5" group="system">
+  <name>System - modein</name>
+  <creationDate>18-May-2011</creationDate>
+  <author>K.-Michael Siebenlist</author>
+  <authorEmail>kms@kms-net.de</authorEmail>
+  <authorUrl>http://www.kms-net.de</authorUrl>
+  <copyright>Michaels Webdesign</copyright>
+  <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+  <version>1.0</version>
+  <description>Joomla! System Plugin zum Einschalten eines Moduls. Die ID des Moduls muss angegeben werden.</description>
+  <files folder="site">
+    <filename plugin="modein">modein.php</filename>
+  </files>
+  <params>
+    <param name="modul_id" type="text" default="66" label="MODUL ID" description="MODUL ID" />
+  </params>
+</install>
