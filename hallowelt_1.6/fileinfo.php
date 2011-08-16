@@ -8,6 +8,9 @@
  * @author     Created on 26-Oct-2010
  * @license    GNU/GPL
  */
+
+defined('ROOT_PATH') || die('This file should not be accessed directly :(');
+
 class FileInfo
 {
     public $path = '';

@@ -68,7 +68,7 @@ class HalloWeltModelHalloWelt extends JModelItem
             $id = $this->getState('message.id');
 
             $this->_db->setQuery($this->_db->getQuery(true)
-            ->from('#__helloworld as h')
+            ->from('#__hallowelt as h')
             ->select('h.greeting, h.params, c.title as category')
             ->leftJoin('#__categories as c ON h.catid=c.id')
             ->where('h.id='.(int)$id));

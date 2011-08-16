@@ -6,7 +6,7 @@ defined('_JEXEC') or die;
 jimport('joomla.application.component.modellist');
 
 /**
- * HelloWorldList Model
+ * HalloWeltList Model
  */
 class HalloWeltModelHalloWeltList extends JModelList
 {

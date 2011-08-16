@@ -9,7 +9,7 @@ JHtml::_('behavior.tooltip');
 $actionLink = JRoute::_('index.php?option=com_hallowelt&layout=edit&id='.(int) $this->item->id);
 
 ?>
-<form action="<?php echo $actionLink; ?>" method="post" name="adminForm" id="helloworld-form">
+<form action="<?php echo $actionLink; ?>" method="post" name="adminForm" id="hallowelt-form">
 	<fieldset class="adminform">
         <legend><?php echo JText::_('COM_HALLOWELT_HALLOWELT_DETAILS'); ?></legend>
 

@@ -40,7 +40,7 @@
     </files>
  
     <administration>
-        <menu>COM_HELLOWORLD_MENU</menu>
+        <menu>COM_HALLOWELT_MENU</menu>
  
         <files folder="admin">
             <folder>controllers</folder>

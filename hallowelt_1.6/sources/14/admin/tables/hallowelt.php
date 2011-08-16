@@ -6,7 +6,7 @@ defined('_JEXEC') or die;
 jimport('joomla.database.table');
 
 /**
- * Hello Table class.
+ * HalloWelt Table class.
  */
 class HalloWeltTableHalloWelt extends JTable
 {

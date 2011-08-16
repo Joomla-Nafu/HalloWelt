@@ -6,12 +6,13 @@ defined('_JEXEC') or die;
 jimport('joomla.application.component.view');
 
 /**
- * HelloWorld View
+ * HalloWelt View
  */
 class HalloWeltViewHalloWelt extends JView
 {
     /**
-     * display method of Hello view
+     * Display method of HalloWelt view.
+     *
      * @return void
      */
     public function display($tpl = null)

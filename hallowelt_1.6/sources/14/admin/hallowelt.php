@@ -3,7 +3,7 @@
 defined('_JEXEC') or die;
 
 // Access check.
-if ( ! JFactory::getUser()->authorise('core.manage', 'com_helloworld'))
+if ( ! JFactory::getUser()->authorise('core.manage', 'com_hallowelt'))
 {
     return JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
 }

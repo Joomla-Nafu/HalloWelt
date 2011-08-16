@@ -11,7 +11,8 @@ jimport('joomla.application.component.view');
 class HalloWeltViewHalloWelt extends JView
 {
     /**
-     * display method of Hello view
+     * Display method of HalloWelt view.
+     *
      * @return void
      */
     public function display($tpl = null)

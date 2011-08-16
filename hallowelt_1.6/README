@@ -8,4 +8,4 @@ Danach muss (im Browser) die Datei build.php aufgerufen werden (@todo oder in de
 Es werden im build Ordner die Codeverzeichnisse der einzelnen Projekte, sowie jeweils eine installierbare ZIP Datei angelegt.
 
 Voraussetzungen:
-* Zum erstellen der ZIP Dateien: die PHP Zip Extension. (http://www.php.net/manual/de/zip.setup.php)
+* Zum Erstellen der ZIP Dateien: die PHP Zip Extension. (http://www.php.net/manual/de/zip.setup.php)

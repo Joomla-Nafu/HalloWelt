@@ -24,7 +24,7 @@ class HalloWeltModelHalloWelt extends JModelAdmin
         // Check specific edit permission then general edit permission.
         return JFactory::getUser()
         ->authorise('core.edit'
-        , 'com_helloworld.message.'.((int) isset($data[$key]) ? $data[$key] : 0))
+        , 'com_hallowelt.message.'.((int) isset($data[$key]) ? $data[$key] : 0))
         or parent::allowEdit($data, $key);
     }
 

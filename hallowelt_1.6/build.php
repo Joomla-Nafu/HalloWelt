@@ -7,8 +7,6 @@
  * @license    GNU/GPL
  */
 
-require_once 'fileinfo.php';
-
 define('DS', DIRECTORY_SEPARATOR);
 
 define('BR', '<br />');
@@ -16,6 +14,8 @@ define('BR', '<br />');
 define('ROOT_PATH', str_replace('/', DS, dirname($_SERVER['SCRIPT_FILENAME'])));
 define('PATH_SOURCES', ROOT_PATH.DS.'sources');
 define('PATH_BUILD', ROOT_PATH.DS.'builds');
+
+require_once 'fileinfo.php';
 
 ?>
 <html>
@@ -82,10 +82,7 @@ th.cell {
 	<?php
 
 	if( ! class_exists('ZipArchive'))
-	{
-	    exit('ba');
-	}
-
+    exit('No zip support :(');
 
 	$projects = getProjects();
 
@@ -134,11 +131,15 @@ th.cell {
 	    $zip->addFile(PATH_SOURCES.DS.$xmlPath, 'hallowelt.xml');
 
 	    echo sprintf(BR.'ZIP: %d files, Status: %d'.BR, $zip->numFiles, $zip->status);
+
 	    $zip->close();
 
 	    echo '<hr />';
 	}
 	?>
+
+	<h1 style="color: green;">Success :)</h1>
+
 	<p>
 		<small>Just in case: This is @license GPL &bull; <a class="kuku"
 			href="http://joomlacode.org/gf/project/elkuku">El KuKu</a> <tt>=;)</tt>
