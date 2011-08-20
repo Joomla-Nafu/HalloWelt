@@ -55,8 +55,9 @@ function wfJCodeDisplay()
     return true;
 }//function
 
-function renderJCodeDisplay($input, $argv, &$parser)
+function renderJCodeDisplay($input, $argv, $parser)
 {
+    return 'gugu';
     global $IP;
 
     defined('NL') || define('NL', "\n");
@@ -209,18 +210,18 @@ function renderJCodeDisplay($input, $argv, &$parser)
         $head .= sprintf('Diese Funktion exisiert bis Joomla! %s<br />', $argv['jversionmax']);
 
         $head .= $pathTree;
-        $head = $parser->recursiveTagParse($head);
+        $head = $parser->recursiveTagParse(&$head);
 
         return $head.$parsedCode;
     }//foreach
 
-    return 'NOT FOUND';
+    return 'SOURCE CODE NOT FOUND :(';
 }//function
 
 /**
  * Entry point for the hook for printing JS and CSS:
  */
-function fnJCodeDisplayOutputHook( &$m_pageObj, $m_parserOutput ) {
+function fnJCodeDisplayOutputHook( $m_pageObj, $m_parserOutput ) {
     global $wgScriptPath;
 
     //--CSS
@@ -249,7 +250,7 @@ function jcode_version_compare($version1, $version2)
  * @param $geshi object GeSHi
  * @return void
  */
-function setupGeSHiForJoomla($geshi
+function setupGeSHiForJoomla(GeSHi $geshi
 , $uri='http://wiki.joomla-nafu.de/joomla-dokumentation/Joomla!_Programmierung/Framework/')
 {
     $JClasses = array('JFrameworkConfig', 'JFactory', 'JRoute', 'JText', 'JApplication', 'JController'

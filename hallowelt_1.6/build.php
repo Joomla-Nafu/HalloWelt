@@ -22,186 +22,137 @@ require_once 'fileinfo.php';
 <head>
 <title>HW Builder</title>
 <style>
-b.src {
-	color: blue;
-}
-
-b.dest {
-	color: maroon;
-}
-
-body {
-	background-image: -moz-radial-gradient(50% 50% 360deg, circle cover, #949494, #C9C9C9,
-		#C7C7C7 75%, #888999 100%);
-}
-
-a:link,a:visited {
-	color: blue;
-	font-weight: bold;
-	text-decoration: none;
-	display: block;
-	padding: 0.3em;
-}
-
-a:hover {
-	background-color: #ffc;
-}
-
-a.create {
-	color: green;
-}
-
-a.remove {
-	color: red;
-}
-
-a.kuku {
-	display: inline;
-	color: black;
-}
-
-tr.row:hover {
-	background-color: #eee;
-}
-
-td.cell {
-	text-align: center;
-}
-
-th.cell {
-	text-align: left;
-}
+body { background-image: -moz-radial-gradient(50% 50% 360deg, circle cover, #949494, #C9C9C9, #C7C7C7 75%, #888999 100%); }
+a:hover { background-color: #ffc; }
+a.kuku { display: inline; color: black; }
 </style>
 </head>
 <body>
-	<h1>HW Builder</h1>
+    <h1>HW Builder</h1>
 
-	<p>
-		<b class="dest">ROOT: <?php echo ROOT_PATH; ?> </b>
-	</p>
-	<?php
+    <p>
+        <b>ROOT: <?php echo ROOT_PATH; ?> </b>
+    </p>
+    <?php
 
-	if( ! class_exists('ZipArchive'))
+    if( ! class_exists('ZipArchive'))
     exit('No zip support :(');
 
-	$projects = getProjects();
+    $projects = getProjects();
 
-	foreach ($projects as $num => $projectPath)
-	{
-	    echo '<h1>Project: '.$num.'</h1>';
+    foreach ($projects as $num => $projectPath)
+    {
+        echo 'Project: '.$num.'...';
 
-	    $symlinkList = getSyms($num);
+        $symlinkList = getSyms($num);
 
-	    if( ! $symlinkList)
-	    {
-	        echo 'LinkList not found :(';
+        if( ! $symlinkList)
+        {
+            echo 'LinkList not found :('.BR;
 
-	        continue;
-	    }
+            continue;
+        }
 
-	    $zip = new ZipArchive;
-	    $filename = PATH_BUILD.DS.'hallowelt_teil_'.$num.'.zip';
+        $zip = new ZipArchive;
+        $filename = PATH_BUILD.DS.'hallowelt_teil_'.$num.'.zip';
 
-	    if(file_exists($filename))
-	    {
-	        unlink($filename);
-	    }
+        if(file_exists($filename))
+        {
+            unlink($filename);
+        }
 
-	    if ($zip->open($filename, ZIPARCHIVE::CREATE)!==TRUE) {
-	        exit("cannot open <$filename>\n");
-	    }
+        if (true !== $zip->open($filename, ZIPARCHIVE::CREATE))
+        exit('cannot open <'.$filename.'>');
 
+        FileInfo::deleteDir(PATH_BUILD.DS.$num);
 
-	    FileInfo::deleteDir(PATH_BUILD.DS.$num);
+        foreach($symlinkList as $path)
+        {
+            $parts = explode(DS, $path);
 
-	    foreach($symlinkList as $path)
-	    {
-	        $parts = explode(DS, $path);
-	        array_shift($parts);
-	        $dst = implode(DS, $parts);
+            array_shift($parts);
 
-	        FileInfo::copy(PATH_SOURCES.DS.$path, PATH_BUILD.DS.$num.DS.$dst);
+            $dst = implode(DS, $parts);
 
-	        $zip->addFile(PATH_SOURCES.DS.$path, $dst);
-	    }
+            FileInfo::copy(PATH_SOURCES.DS.$path, PATH_BUILD.DS.$num.DS.$dst);
 
-	    //-- copy XML
-	    $xmlPath = $num.DS.'admin'.DS.'hallowelt.xml';
-	    FileInfo::copy(PATH_SOURCES.DS.$xmlPath, PATH_BUILD.DS.$xmlPath);
-	    $zip->addFile(PATH_SOURCES.DS.$xmlPath, 'hallowelt.xml');
+            $zip->addFile(PATH_SOURCES.DS.$path, $dst);
+        }//foreach
 
-	    echo sprintf(BR.'ZIP: %d files, Status: %d'.BR, $zip->numFiles, $zip->status);
+        //-- copy XML
+        $xmlPath = $num.DS.'admin'.DS.'hallowelt.xml';
 
-	    $zip->close();
+        FileInfo::copy(PATH_SOURCES.DS.$xmlPath, PATH_BUILD.DS.$xmlPath);
 
-	    echo '<hr />';
-	}
-	?>
+        $zip->addFile(PATH_SOURCES.DS.$xmlPath, 'hallowelt.xml');
 
-	<h1 style="color: green;">Success :)</h1>
+        echo sprintf('ZIPed: %d files, Status: %d'.BR, $zip->numFiles, $zip->status);
 
-	<p>
-		<small>Just in case: This is @license GPL &bull; <a class="kuku"
-			href="http://joomlacode.org/gf/project/elkuku">El KuKu</a> <tt>=;)</tt>
-		</small>
-	</p>
+        $zip->close();
+    }//foreach
+    ?>
+
+    <h1 style="color: green;">Success !</h1>
+
+    <p>
+        <b>The files are in: <?php echo PATH_BUILD; ?> </b>
+    </p>
+
+    <p>
+        <small>Just in case: This is @license GPL and made by <a class="kuku"
+            href="http://joomlacode.org/gf/project/elkuku">El KuKu</a> <tt>=;)</tt>
+        </small>
+    </p>
 
 </body>
 </html>
 
-	<?php
-	//########################################################################################
-	//#############################  FUNCTIONS  ##############################################
-	//########################################################################################
+    <?php
+    //########################################################################################
+    //#############################  FUNCTIONS  ##############################################
+    //########################################################################################
 
-	function getProjects()
-	{
-	    $paths = array();
+    function getProjects()
+    {
+        $paths = array();
 
-	    $dir = new DirectoryIterator(ROOT_PATH.DS.'sources');
+        foreach(new DirectoryIterator(ROOT_PATH.DS.'sources') as $fileinfo)
+        {
+            if (!$fileinfo->isDot()
+            && '.svn' != $fileinfo->getFilename())
+            {
+                $path = ROOT_PATH.DS.'sources'.DS.$fileinfo->getFilename();
 
-	    foreach ($dir as $fileinfo) {
-	        if (!$fileinfo->isDot()) {
-	            //        var_dump($fileinfo->getFilename());
-	            $path = ROOT_PATH.DS.'sources'.DS.$fileinfo->getFilename();
+                if(file_exists($path))
+                {
+                    $paths[$fileinfo->getFilename()] = $path;
+                }
+            }
+        }//foreach
 
-	            if(file_exists($path))
-	            {
-	                $paths[$fileinfo->getFilename()] = $path;
-	            }
-	        }
-	    }
+        return $paths;
+    }//function
 
-	    //var_dump($paths);
-	    return $paths;
-	}
+    function getSyms($projectDir)
+    {
+        $filename = PATH_SOURCES.DS.$projectDir.DS.'links';
 
-	function getSyms($projectDir)
-	{
-	    $filename = PATH_SOURCES.DS.$projectDir.DS.'links';
+        if( ! file_exists($filename))
+        return false;
 
-	    if( ! file_exists($filename))
-	    {
-	        return false;
-	    }
+        $lines = file($filename);
 
-	    $lines = file(PATH_SOURCES.DS.$projectDir.DS.'links');
+        foreach($lines as $lNo => $line)
+        {
+            $line = trim($line);
 
-	    $syms = array();
-	    $base = '';
+            //-- Strip blanks and comments
+            if(false == $line
+            || strpos($line, '#') === 0)
+            continue;
 
-	    foreach($lines as $lNo => $line)
-	    {
-	        $line = trim($line);
+            $links[] = trim(str_replace('/', DS, $line));
+        }//foreach
 
-	        //-- Strip blanks and comments
-	        if(false == $line
-	        || strpos($line, '#') === 0)
-	        continue;
-
-	        $links[] = trim(str_replace('/', DS, $line));
-	    }//foreach
-
-	    return $links;
-	}//function
-
+        return $links;
+    }//function
