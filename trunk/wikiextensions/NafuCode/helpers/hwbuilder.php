@@ -79,13 +79,8 @@ class HWBuilder
             eval("\$items['".$s."'][] = '$projectNum/$fileName';");
         }//foreach
 
-        //$output[] = print_r($items, 1);
-
-        //        $output[] = '== Das Installationspaket ==';
-        //        $output[] = 'Der Inhalt des [[Teil_01#Ein_Installationspaket_erstellen|Codeverzeichnisses]] außerhalb Ihrer Komponente.';
 
         $lines = self::drawTreeLine($items);
-        //$output[] = print_r($lines, 1);
 
         $output[] = '{| class="dirtree"';
         $output[] = '|-';
@@ -100,7 +95,6 @@ class HWBuilder
 
         $output = implode("\n", $output);
 
-        // $output = $this->parser->recursiveTagParse($output);
         return $output;
 
     }//function
@@ -114,7 +108,7 @@ class HWBuilder
         $fileCount = 0;
         $folderCount = 0;
 
-        foreach ($items as $folder => $subItems)
+        foreach($items as $folder => $subItems)
         {
             if(is_array($subItems))
             {
@@ -131,8 +125,8 @@ class HWBuilder
                 {
                     $s .= '{{tree|V}}';
 
-
                     $folderCount ++;
+
                     $s .= self::treeDetectLevel($levels, 0, $folderCount);
                 }
 
@@ -154,6 +148,7 @@ class HWBuilder
             $output[] = '|-';
 
             $s = '';
+
             $s .= '|';
             $s .= '{{tree|V}}';
 
@@ -195,7 +190,7 @@ class HWBuilder
         $s = '';
         $i = 1;
 
-        foreach ($levels as $xxx => $l)
+        foreach ($levels as $l)
         {
             if($l > 1)
             {
@@ -257,7 +252,20 @@ class HWBuilder
 
 
 
+    /**
+     * Experimental section =;)
+     */
 
+
+
+    /**
+     *
+     * Enter description here ...
+     * @param unknown_type $input
+     * @param unknown_type $projectOnly
+     * @throws Exception
+     * @return string
+     */
     public static function tree2($input, $projectOnly = false)
     {
         $parts = explode('/', $input);
@@ -287,7 +295,6 @@ class HWBuilder
 
         if( ! file_exists($base.'/links'))
         throw new Exception('Link list not found for tree');
-
 
         $lines = file($base.'/links');
 

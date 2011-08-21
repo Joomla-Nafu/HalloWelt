@@ -163,7 +163,7 @@ class JCodeDisplay
                          * FOUND IT :)
                         */
 
-                        //                                     var_dump($m)    ;
+                        //  var_dump($m)    ;
 
                         if( ! file_exists($sourcePath))
                         {
@@ -181,24 +181,26 @@ class JCodeDisplay
 
                         $parsedCode = NafuCodeHelper::highlightCode($cLines, 'php', $m->attributes()->start, $m->attributes()->end);
 
-                        $sig =('true' == $m->attributes()->static) ? '::' : '->';
-
                         $pathTree = '{{folder|libraries/joomla}}'.NL;
+
+                        $p = $path;
 
                         $stripPath = '/home/elkuku/eclipsespace/indigogit2/nafuwiki_20110818/sources/joomla/'
                         .$JVersion.'/xml/libraries/joomla/';//@todo...
 
+                        $p = str_replace($stripPath, '', $p);
+
                         $stripPath = '/home/elkuku/eclipsespace/indigogit2/nafuwiki_20110818/sources/joomla/'
                         .$JVersion.'/xml/libraries/';//@todo...
 
-                        $p = str_replace($stripPath, '', $path);
+                        $p = str_replace($stripPath, '', $p);
 
                         $p = substr($p, 0, strrpos($p, '.'));//-- strip the 'xml' extension
 
                         $pathParts = explode('/', $p);
 
                         $cc = 1;
-                        $colours = array('', '|red', '|green', '|yellow');
+                        $colors = array('', '|red', '|green', '|yellow');
 
                         foreach($pathParts as $part)
                         {
@@ -221,10 +223,12 @@ class JCodeDisplay
 
                         $JMinor = $parts[0].'.'.$parts[1];
 
+                        $sig =('true' == $m->attributes()->static) ? '::' : '->';
+
                         $head = '';
 
                         $head .= '{{JVer|'.$JMinor.'}} ';
-                        $head .= "'''<tt>".$class.$sig.$method."()</tt>'''";
+                        $head .= "'''<tt>".$cla->attributes()->name.$sig.$m->attributes()->name."()</tt>'''";
 
                         //                         if(isset($argv['jversionmin'])
                         //                         ||isset($argv['jversionmax']))
