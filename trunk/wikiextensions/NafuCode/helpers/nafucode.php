@@ -42,12 +42,19 @@ class NafuCodeHelper
         $path = NAFUCODE_PATH_SOURCES.'/sources/'.$cleanPath;
 
         if( ! file_exists($path))
-        throw new Exception('NafuCode Source not found :( '.$path);//@todo debug - remove values
+        {
+            $msg = '';
+            $msg .= 'NafuCode Source not found :(';
+            $msg =(DBG_NAFUCODE) ? ': '.$path : '';
+
+            throw new Exception($msg);
+        }
 
         //-- Get the file
         $lines = file($path);
 
         $options = array();
+
         if(isset($this->argv['options']))
         {
             $options = explode(',', $this->argv['options']);
@@ -143,6 +150,93 @@ class NafuCodeHelper
         return $geshi->parse_code();
     }//function
 
+    public static function cutCode($lines, $start = 0, $end = 0)
+    {
+        $cLines = array();
+
+        for($i = $start - 1; $i <= $end - 1; $i ++)
+        {
+            $l = rtrim($lines[$i]);
+
+            //-- Strip leading tabs
+            if(substr($l, 0, 1) == "\t")
+            $l = substr($l, 1);
+
+            //-- Convert tabs to three spaces
+            $l = str_replace("\t", '   ', $l);
+
+            $cLines[] = $l;
+            // $codeRaw .= sprintf('%4s', $i + 1).' '.$l.NL;
+        }//for
+
+        return $cLines;
+    }
+
+    public static function highlightCode($lines, $ext, $start = 0, $end = 0, $options = array())
+    {
+        global $IP;
+
+        if( ! class_exists('GeSHi'))
+        {
+            $path = $IP.'/extensions/SyntaxHighlight_GeSHi/geshi/geshi.php';
+
+            if( ! file_exists($path))
+            return '<pre>'.htmlentities(implode("\n", $lines)).'</pre>';
+
+            require_once $path;
+
+            if( ! class_exists('GeSHi'))
+            return '<pre>'.htmlentities(implode("\n", $lines)).'</pre>';
+        }
+
+        $geshi = new GeSHi(implode("\n", $lines), $ext);
+
+        $geshi->enable_line_numbers(GESHI_NO_LINE_NUMBERS);
+
+        if(in_array('linenumbers', $options)
+        || $start)
+        {
+            if(in_array('fancy', $options))
+            {
+                $geshi->enable_line_numbers(GESHI_FANCY_LINE_NUMBERS, 2);
+                $geshi->set_line_style('background: #fff;', 'background: #f0f0f0;', 2);
+            }
+            else
+            {
+                $geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS, 2);
+            }
+        }
+
+        if($start)
+        {
+            $geshi->start_line_numbers_at($start);
+        }
+
+        if(array_key_exists('highlight', $options))
+        {
+            $highlights = explode(',', $options['highlight']);
+
+            foreach ($highlights as $i => $highlight)
+            {
+                $highlights[$i] =($start)
+                ? intval($highlight- $start + 1)
+                : intval($highlight);
+            }
+
+            $geshi->highlight_lines_extra($highlights);
+        }
+
+        if(function_exists('setupGeSHiForJoomla'))
+        setupGeSHiForJoomla($geshi);
+
+        return $geshi->parse_code();
+    }//function
+
+    /**
+     *
+     * Enter description here ...
+     * @return string
+     */
     public function updateProjectFromRequest()
     {
         global $wgRequest;
@@ -284,6 +378,11 @@ class NafuCodeHelper
         return $html;
     }
 
+    /**
+     *
+     * Enter description here ...
+     * @throws Exception
+     */
     private function retrieveProject()
     {
         global $wgRequest;
@@ -298,6 +397,10 @@ class NafuCodeHelper
         return $projectList[$project];
     }//function
 
+    /**
+     *
+     * Enter description here ...
+     */
     public function listProject()
     {
         $p = $this->retrieveProject();
@@ -400,8 +503,29 @@ class NafuCodeHelper
         $fileName = NAFUCODE_PATH_SOURCES.'/projects/'.$name.'.xml';
 
         if( ! file_exists($fileName))
-        throw new Exception('Project file not found '.$fileName);
+        {
+            $msg = '';
+            $msg .= 'Project file not found';
+            $msg =(DBG_NAFUCODE) ? ': '.$fileName : '';
+
+            throw new Exception($msg);
+        }
 
         return simplexml_load_file($fileName);
     }
+
+    /**
+     *
+     * Enter description here ...
+     * @param unknown_type $input
+     */
+    public static function stripCommand($input)
+    {
+        $parts = explode('/', $input);
+
+        if(count($parts) > 1)
+        array_shift($parts);
+
+        return implode('/', $parts);
+    }//function
 }//class

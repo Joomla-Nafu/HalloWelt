@@ -15,7 +15,13 @@ abstract class NafuCodeClient
         $path = dirname(__FILE__).'/'.$name.'/'.$name.'.php';
 
         if( ! file_exists($path))
-        throw new Exception('Client not found: '.$name.' --- '.$path);//@todo debug values
+        {
+            $msg = '';
+            $msg .= 'Client not found';
+            $msg =(DBG_NAFUCODE) ? ': '.$name.' --- '.$path : '';
+
+            throw new Exception($msg);
+        }
 
         require_once $path;
 

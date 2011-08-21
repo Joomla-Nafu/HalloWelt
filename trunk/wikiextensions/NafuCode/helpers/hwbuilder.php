@@ -1,10 +1,10 @@
 <?php
 /**
-*
-* Enter description here ...
-* @author elkuku
-*
-*/
+ *
+ * Enter description here ...
+ * @author elkuku
+ *
+ */
 
 $a = 1;
 
@@ -28,20 +28,21 @@ class HWBuilder
             $base .= '/'.$projectSub;
 
             if( ! is_dir($base))
-            throw new Exception('Project dir not found for tree - '.$base);//@todo remove values
+            {
+                $msg = '';
+                $msg .= 'Project dir not found for tree';
+                $msg =(DBG_NAFUCODE) ? ' - '.$base : '';
+
+                throw new Exception($msg);
+            }
         }
 
         if( ! file_exists($base.'/links'))
         throw new Exception('Link list not found for tree');
 
-
         $lines = file($base.'/links');
 
         $output = array();
-        //$output[] = print_r($lines, 1);
-        // $output[] = 'Project'.$this->project;
-
-        //    $output[] = $base.'/links';
 
         $items = array();
 
@@ -99,7 +100,7 @@ class HWBuilder
 
         $output = implode("\n", $output);
 
-       // $output = $this->parser->recursiveTagParse($output);
+        // $output = $this->parser->recursiveTagParse($output);
         return $output;
 
     }//function
@@ -275,7 +276,13 @@ class HWBuilder
             $base .= '/'.$projectSub;
 
             if( ! is_dir($base))
-            throw new Exception('Project dir not found for tree - '.$base);//@todo remove values
+            {
+                $msg = '';
+                $msg .= 'Project dir not found for tree';
+                $msg =(DBG_NAFUCODE) ? ' - '.$base : '';
+
+                throw new Exception($msg);
+            }
         }
 
         if( ! file_exists($base.'/links'))
@@ -329,16 +336,16 @@ class HWBuilder
         $lines = self::drawTreeLine2($items);
         //$output[] = print_r($lines, 1);
 
-         $output[] = '{{#tree:';
-//         $output[] = '|-';
+        $output[] = '{{#tree:';
+        //         $output[] = '|-';
         $output[] = 'hw';//{{file|hallowelt_paket|zip}}';
 
         $output = array_merge($output, $lines);
 
-//         $output[] = '|-';
+        //         $output[] = '|-';
         $output[] = '* hallowelt.xml';//{{tree|L}}{{file|[[#ADMIN/hallowelt.xml|hallowelt.xml]]|xml}}';
 
-       $output[] = '}}';
+        $output[] = '}}';
 
         $output = implode("\n", $output);
 
@@ -361,10 +368,10 @@ class HWBuilder
         {
             if(is_array($subItems))
             {
-      //          $output[] = '|-';
+                //          $output[] = '|-';
 
                 $s = '';
-        //        $s .= '|';
+                //        $s .= '|';
 
                 if($level == 0)
                 {
@@ -394,10 +401,10 @@ class HWBuilder
 
             $levels[$level - 1] = self::treeFileCount($items);
 
-//             $output[] = '|-';
+            //             $output[] = '|-';
 
             $s = '';
-//             $s .= '|';
+            //             $s .= '|';
             $s .= '*';//{{tree|V}}';
 
             $s .= self::treeDetectLevel2($levels, $fileCount, $folderCount);
@@ -427,57 +434,7 @@ class HWBuilder
 
         foreach ($levels as $xxx => $l)
         {
-            if($l > 1)
-            {
-                if($i == count($levels))
-                {
-                    if($fileCount)
-                    {
-                        if($fileCount == $l)
-                        {
-                            $s .= '*';//{{tree|L}}';
-                        }
-                        else
-                        {
-                            $s .= '*';//{{tree|T}}';
-                        }
-                    }
-                    else
-                    {
-                        $s .= '*';//{{tree|T}}';
-                    }
-                }
-                else
-                {
-                    if($folderCount)
-                    {
-                        if($folderCount == $l)
-                        {
-                            $s .= '*';//{{tree|L}}';
-                        }
-                        else
-                        {
-                            $s .= '*';//{{tree|V}}';
-                        }
-                    }
-                    else
-                    {
-                        $s .= '*';//{{tree|V}}';
-                    }
-                }
-            }
-            else
-            {
-                if($i == count($levels))
-                {
-                    $s .= '*';//{{tree|L}}';
-
-                }
-                else
-                {
-                    $s .= '*';//{{tree|S}}';
-                }
-            }
+            $s .= '*';//{{tree|V}}';
 
             $i ++;
         }//foreach
