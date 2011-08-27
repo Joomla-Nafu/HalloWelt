@@ -45,7 +45,7 @@ class NafuCodeHelper
         {
             $msg = '';
             $msg .= 'NafuCode Source not found :(';
-            $msg =(DBG_NAFUCODE) ? ': '.$path : '';
+            $msg .=(DBG_NAFUCODE) ? ': '.$path : '';
 
             throw new Exception($msg);
         }
@@ -506,7 +506,7 @@ class NafuCodeHelper
         {
             $msg = '';
             $msg .= 'Project file not found';
-            $msg =(DBG_NAFUCODE) ? ': '.$fileName : '';
+            $msg .=(DBG_NAFUCODE) ? ': '.$fileName : '';
 
             throw new Exception($msg);
         }

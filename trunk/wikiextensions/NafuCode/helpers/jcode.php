@@ -135,6 +135,7 @@ class JCodeDisplay
                 continue;
 
                 $sourcePath = $c->attributes()->src;//@todo clean path...
+                $sourcePath = $baseDir.'/sources/joomla/'.$JVersion.'/'.$sourcePath;
 
                 $path = $baseDir.'/sources/joomla/'.$JVersion.'/xml/'.$c->attributes()->xml;
 
@@ -144,7 +145,7 @@ class JCodeDisplay
                 {
                     $msg = '';
                     $msg .= 'Class file not found :(';
-                    $msg =(DBG_NAFUCODE) ? ' '.$path : '';
+                    $msg .=(DBG_NAFUCODE) ? ' '.$path : '';
 
                     throw new Exception($msg);
                 }
@@ -169,7 +170,7 @@ class JCodeDisplay
                         {
                             $msg = '';
                             $msg .= 'File not found in method list';
-                            $msg =(DBG_NAFUCODE) ? ': '.$sourcePath : '';
+                            $msg .=(DBG_NAFUCODE) ? ': '.$sourcePath : '';
 
                             throw new Exception($msg);
                         }
@@ -190,10 +191,26 @@ class JCodeDisplay
 
                         $p = str_replace($stripPath, '', $p);
 
+                        $stripPath = '/kunden/214043_96450/rp-hosting/14658/43509/joomla_nafu/wiki/sources/joomla/'
+                        .$JVersion.'/xml/libraries/joomla/';//@todo...
+
+                        $p = str_replace($stripPath, '', $p);
+
                         $stripPath = '/home/elkuku/eclipsespace/indigogit2/nafuwiki_20110818/sources/joomla/'
                         .$JVersion.'/xml/libraries/';//@todo...
 
                         $p = str_replace($stripPath, '', $p);
+
+                        $stripPath = '/kunden/214043_96450/rp-hosting/14658/43509/joomla_nafu/wiki/sources/joomla/'
+                        .$JVersion.'/xml/libraries/';//@todo...
+
+                        $p = str_replace($stripPath, '', $p);
+
+                        if(0 === strpos($p, '/'))
+                        {
+                            //-- Path clean FAILED :(
+                            $p = 'error_happened___:(___/file.php.xml';
+                        }
 
                         $p = substr($p, 0, strrpos($p, '.'));//-- strip the 'xml' extension
 

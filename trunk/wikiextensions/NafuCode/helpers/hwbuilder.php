@@ -31,7 +31,7 @@ class HWBuilder
             {
                 $msg = '';
                 $msg .= 'Project dir not found for tree';
-                $msg =(DBG_NAFUCODE) ? ' - '.$base : '';
+                $msg .=(DBG_NAFUCODE) ? ' - '.$base : '';
 
                 throw new Exception($msg);
             }
@@ -287,7 +287,7 @@ class HWBuilder
             {
                 $msg = '';
                 $msg .= 'Project dir not found for tree';
-                $msg =(DBG_NAFUCODE) ? ' - '.$base : '';
+                $msg .=(DBG_NAFUCODE) ? ' - '.$base : '';
 
                 throw new Exception($msg);
             }

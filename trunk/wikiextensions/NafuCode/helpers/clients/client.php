@@ -18,7 +18,7 @@ abstract class NafuCodeClient
         {
             $msg = '';
             $msg .= 'Client not found';
-            $msg =(DBG_NAFUCODE) ? ': '.$name.' --- '.$path : '';
+            $msg .=(DBG_NAFUCODE) ? ': '.$name.' --- '.$path : '';
 
             throw new Exception($msg);
         }
