@@ -52,16 +52,15 @@ class FileInfo
         return new FileInfo;
     }//function
 
-    /**
-     * Copies a file
-     *
-     * @param	string	$src	The path to the source file
-     * @param	string	$dest	The path to the destination file
-     * @param	string	$path	An optional base path to prefix to the file names
-     *
-     * @return	boolean	True on success
-     * @since	1.5
-     */
+	/**
+	 * Copies a file.
+	 *
+	 * @param	string	$src   The path to the source file
+	 * @param	string	$dest  The path to the destination file
+	 *
+	 * @return	boolean	True on success
+	 * @since	1.5
+	 */
     public static function copy($src, $dest)
     {
         if( ! file_exists($src))

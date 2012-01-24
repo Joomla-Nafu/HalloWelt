@@ -1,6 +1,5 @@
 <?php
 /**
- * @version $Id$
  * @package     JFrameWorkDoc
  * @subpackage  External
  * @author		EasyJoomla {@link http://www.easy-joomla.org Easy-Joomla.org}
@@ -72,8 +71,8 @@ Releases
 </div>
 </form>
 
-<p>This CURLs the download page on <a href="http://joomlacode.org">Joomla!Code.org</a>,
-extracts "valuable information" and translates them to HTML and Wiki
+<p>This cURLs the download page on <a href="http://joomlacode.org">Joomla!Code.org</a>,
+extracts the "valuable information" and translates it to HTML and Wiki
 syntax.</p>
 
 <div style="background-color: #eee;"><?php
@@ -114,7 +113,20 @@ else
 class EasyProjectDisplay
 {
     private $JReleases = array(
-      '1.5.18'=>array(12350, 12351)
+      '1.7.1' => array(15752, 15751),
+       '1.7.0' => array(15278, 15279)
+    , '1.6.6' => array(15379, 15378)
+    , '1.6.5' => array(15179, 15178)
+    , '1.6.4' => array(15063, 15064)
+    , '1.6.3' => array(14659, 14658)
+    , '1.6.2' => array(14589, 14590)
+    , '1.6.1' => array(14236, 14237)
+    , '1.5.23' => array(14506, 14505)
+    , '1.5.22' => array(13105, 13106)
+    , '1.5.21'=>array(13034, 12974)
+    , '1.5.20'=>array(12610, 12611)
+    , '1.5.19'=>array(12583, 12584)
+    , '1.5.18'=>array(12350, 12351)
     , '1.5.17'=>array(12193, 12192)
     , '1.5.16'=>array(12153, 12154)
     , '1.5.15'=>array(11396, 11395)
@@ -155,7 +167,7 @@ class EasyProjectDisplay
 
         foreach($this->JReleases as $name => $ids)
         {
-            if( in_array($ID, $ids))
+            if(in_array($ID, $ids))
             {
                 $version = $name;
 
@@ -169,27 +181,30 @@ class EasyProjectDisplay
 
         $options['pkgID'] = $ID;
 
-        $package =$this->getPackage($options);
+        $package = $this->getPackage($options);
         $regex = '/Joomla_(.*?)_to_/';
 
-        foreach ($package->items as $item)
+        foreach($package->items as $item)
         {
             $link = $item->link;
+
             if( ! strpos($link, 'download')) continue;
 
             $ext = substr($link, strrpos($link, '.') + 1);
-            $ext =( $ext == 'gz' ) ? 'tgz' : $ext;
-            if( strpos($link, 'Stable-Full_Package'))
+            $ext =($ext == 'gz') ? 'tgz' : $ext;
+
+            if(strpos($link, 'Stable-Full_Package'))
             {
                 $versionLinks[$version][$ext]['link'] = $link;
                 $versionLinks[$version][$ext]['md5'] = $item->md5;
             }
-            elseif ( strpos($link, 'Stable-Patch_Package'))
+            elseif(strpos($link, 'Stable-Patch_Package'))
             {
                 preg_match('/Joomla_(.*?)_to_/',$link, $matches);
                 $updateLinks[$version][$matches[1]][$ext]['link'] = $link;
                 $updateLinks[$version][$matches[1]][$ext]['md5'] = $item->md5;
             }
+
             if(isset($matches[1]))
             {
                 arsort($updateLinks[$version][$matches[1]]);
@@ -246,13 +261,17 @@ class EasyProjectDisplay
 
         echo '<hr /><h2>Wiki</h2>';
         echo '<textarea style="width: 100%; height: 100px;" cols="1000" rows="1000">';
-        echo "== $version ==".NL;
-        echo '* ';
+
+        if(count($versionLinks[$version]))
+        {
+            echo "== Joomla! $version Stable ==".NL;
+        }
 
         foreach ($versionLinks[$version] as $vExt => $vLink)
         {
-            echo ' ['.$vLink['link'].' '.$vExt.'] ';
-            echo '<small><small><small><small>&nbsp;'.$vLink['md5'].'</small></small></small></small> ';
+            echo '* ';
+            echo ' ['.$vLink['link'].' Joomla! '.$version.'.'.$vExt.'] ';
+            echo '<small><small><small><small>&nbsp;'.$vLink['md5'].'</small></small></small></small> '.NL;
         }//foreach
 
         foreach ($updateLinks[$version] as $uVersion=>$uLinks)
