@@ -1,10 +1,10 @@
 <?php
 /**
- * @version SVN: $Id$
- * @package    HalloWelt 1.6
- * @subpackage Base
- * @author     Created on 26-Oct-2010
- * @license    GNU/GPL
+ * @package     HalloWelt
+ * @subpackage  Base
+ * @author      Joomla-wiki.de <kontakt@joomla-wiki.de>
+ * @copyright   2012 Joomla-wiki.de
+ * @license     GNU/GPL http://gnu.org
  */
 
 define('DS', DIRECTORY_SEPARATOR);
@@ -12,147 +12,173 @@ define('DS', DIRECTORY_SEPARATOR);
 define('BR', '<br />');
 
 define('ROOT_PATH', str_replace('/', DS, dirname($_SERVER['SCRIPT_FILENAME'])));
-define('PATH_SOURCES', ROOT_PATH.DS.'sources');
-define('PATH_BUILD', ROOT_PATH.DS.'builds');
+define('PATH_SOURCES', ROOT_PATH . DS . 'sources');
+define('PATH_BUILD', ROOT_PATH . DS . 'builds');
 
 require_once 'fileinfo.php';
 
 ?>
-<html>
-<head>
-<title>HW Builder</title>
-<style>
-body { background-image: -moz-radial-gradient(50% 50% 360deg, circle cover, #949494, #C9C9C9, #C7C7C7 75%, #888999 100%); }
-a:hover { background-color: #ffc; }
-a.kuku { display: inline; color: black; }
-</style>
-</head>
-<body>
-    <h1>HW Builder</h1>
+	<html>
+	<head>
+		<title>HW Builder</title>
+		<style>
+			body {
+				background-image: -moz-radial-gradient(50% 50% 360deg, circle cover, #949494, #C9C9C9, #C7C7C7 75%, #888999 100%);
+			}
 
-    <p>
-        <b>ROOT: <?php echo ROOT_PATH; ?> </b>
-    </p>
-    <?php
+			a:hover {
+				background-color: #ffc;
+			}
 
-    if( ! class_exists('ZipArchive'))
-    exit('No zip support :(');
+			a.kuku {
+				display: inline;
+				color: black;
+			}
+		</style>
+	</head>
+	<body>
+	<h1>HW Builder</h1>
 
-    $projects = getProjects();
+	<p>
+		<b>ROOT: <?php echo ROOT_PATH; ?> </b>
+	</p>
+	<?php
 
-    foreach ($projects as $num => $projectPath)
-    {
-        echo 'Project: '.$num.'...';
+	if (!class_exists('ZipArchive'))
+		exit('No zip support :(');
 
-        $symlinkList = getSyms($num);
+	$projects = getProjects();
 
-        if( ! $symlinkList)
-        {
-            echo 'LinkList not found :('.BR;
+	foreach ($projects as $num => $projectPath)
+	{
+		echo 'Project: ' . $num . '...';
 
-            continue;
-        }
+		$symlinkList = getSyms($num);
 
-        $zip = new ZipArchive;
-        $filename = PATH_BUILD.DS.'hallowelt_teil_'.$num.'.zip';
+		if (!$symlinkList)
+		{
+			echo 'LinkList not found :(' . BR;
 
-        if(file_exists($filename))
-        {
-            unlink($filename);
-        }
+			continue;
+		}
 
-        if (true !== $zip->open($filename, ZIPARCHIVE::CREATE))
-        exit('cannot open <'.$filename.'>');
+		$zip = new ZipArchive;
+		$filename = PATH_BUILD . DS . 'hallowelt_teil_' . $num . '.zip';
 
-        FileInfo::deleteDir(PATH_BUILD.DS.$num);
+		if (file_exists($filename))
+		{
+			unlink($filename);
+		}
 
-        foreach($symlinkList as $path)
-        {
-            $parts = explode(DS, $path);
+		if (true !== $zip->open($filename, ZIPARCHIVE::CREATE))
+			exit('cannot open <' . $filename . '>');
 
-            array_shift($parts);
+		FileInfo::deleteDir(PATH_BUILD . DS . $num);
 
-            $dst = implode(DS, $parts);
+		foreach ($symlinkList as $path)
+		{
+			$parts = explode(DS, $path);
 
-            FileInfo::copy(PATH_SOURCES.DS.$path, PATH_BUILD.DS.$num.DS.$dst);
+			array_shift($parts);
 
-            $zip->addFile(PATH_SOURCES.DS.$path, $dst);
-        }//foreach
+			$dst = implode(DS, $parts);
 
-        //-- copy XML
-        $xmlPath = $num.DS.'admin'.DS.'hallowelt.xml';
+			FileInfo::copy(PATH_SOURCES . DS . $path, PATH_BUILD . DS . $num . DS . $dst);
 
-        FileInfo::copy(PATH_SOURCES.DS.$xmlPath, PATH_BUILD.DS.$xmlPath);
+			$zip->addFile(PATH_SOURCES . DS . $path, $dst);
+		}
 
-        $zip->addFile(PATH_SOURCES.DS.$xmlPath, 'hallowelt.xml');
+		// copy XML
+		$xmlPath = $num . DS . 'admin' . DS . 'hallowelt.xml';
 
-        echo sprintf('ZIPed: %d files, Status: %d'.BR, $zip->numFiles, $zip->status);
+		FileInfo::copy(PATH_SOURCES . DS . $xmlPath, PATH_BUILD . DS . $xmlPath);
 
-        $zip->close();
-    }//foreach
-    ?>
+		$zip->addFile(PATH_SOURCES . DS . $xmlPath, 'hallowelt.xml');
 
-    <h1 style="color: green;">Success !</h1>
+		echo sprintf('ZIPed: %d files, Status: %d' . BR, $zip->numFiles, $zip->status);
 
-    <p>
-        <b>The files are in: <?php echo PATH_BUILD; ?> </b>
-    </p>
+		$zip->close();
+	}
+	?>
 
-    <p>
-        <small>Just in case: This is @license GPL and made by <a class="kuku"
-            href="http://joomlacode.org/gf/project/elkuku">El KuKu</a> <tt>=;)</tt>
-        </small>
-    </p>
+	<h1 style="color: green;">Success !</h1>
 
-</body>
-</html>
+	<p>
+		<b>The files are in: <?php echo PATH_BUILD; ?> </b>
+	</p>
 
-    <?php
-    //########################################################################################
-    //#############################  FUNCTIONS  ##############################################
-    //########################################################################################
+	<p>
+		<small>Just in case: This is @license GPL and made by <a class="kuku"
+		                                                         href="http://joomlacode.org/gf/project/elkuku">El
+				KuKu</a> <tt>=;)</tt>
+		</small>
+	</p>
 
-    function getProjects()
-    {
-        $paths = array();
+	</body>
+	</html>
 
-        foreach(new DirectoryIterator(ROOT_PATH.DS.'sources') as $fileinfo)
-        {
-            if (!$fileinfo->isDot()
-            && '.svn' != $fileinfo->getFilename())
-            {
-                $path = ROOT_PATH.DS.'sources'.DS.$fileinfo->getFilename();
+<?php
 
-                if(file_exists($path))
-                {
-                    $paths[$fileinfo->getFilename()] = $path;
-                }
-            }
-        }//foreach
+/**
+ * ########################################################################################
+ * #############################  FUNCTIONS  ##############################################
+ * ########################################################################################
+ */
 
-        return $paths;
-    }//function
+/**
+ * Get the projects.
+ *
+ * @return array
+ */
+function getProjects()
+{
+	$paths = array();
 
-    function getSyms($projectDir)
-    {
-        $filename = PATH_SOURCES.DS.$projectDir.DS.'links';
+	foreach (new DirectoryIterator(ROOT_PATH . DS . 'sources') as $fileinfo)
+	{
+		if (!$fileinfo->isDot()
+			&& '.svn' != $fileinfo->getFilename())
+		{
+			$path = ROOT_PATH . DS . 'sources' . DS . $fileinfo->getFilename();
 
-        if( ! file_exists($filename))
-        return false;
+			if (file_exists($path))
+			{
+				$paths[$fileinfo->getFilename()] = $path;
+			}
+		}
+	}
 
-        $lines = file($filename);
+	return $paths;
+}
 
-        foreach($lines as $lNo => $line)
-        {
-            $line = trim($line);
+/**
+ * Get the project list.
+ *
+ * @param   string  $projectDir  The project directory.
+ *
+ * @return array|bool
+ */
+function getSyms($projectDir)
+{
+	$filename = PATH_SOURCES . DS . $projectDir . DS . 'links';
 
-            //-- Strip blanks and comments
-            if(false == $line
-            || strpos($line, '#') === 0)
-            continue;
+	if (!file_exists($filename))
+		return false;
 
-            $links[] = trim(str_replace('/', DS, $line));
-        }//foreach
+	$lines = file($filename);
+	$links = array();
 
-        return $links;
-    }//function
+	foreach ($lines as $lNo => $line)
+	{
+		$line = trim($line);
+
+		// Strip blanks and comments
+		if (false == $line
+			|| strpos($line, '#') === 0)
+			continue;
+
+		$links[] = trim(str_replace('/', DS, $line));
+	}
+
+	return $links;
+}
