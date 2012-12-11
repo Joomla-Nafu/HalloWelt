@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8" ?> 
+<?xml version="1.0" encoding="utf-8" ?>
 <metadata>
-	<layout title="com_hallowelt_HalloWelt_View_Default_Title">
-		<message>com_hallowelt_HalloWelt_View_Default_Desc</message>
+	<layout title="COM_HALLOWELT_HALLOWELT_VIEW_DEFAULT_TITLE">
+		<message>COM_HALLOWELT_HALLOWELT_VIEW_DEFAULT_DESC</message>
 	</layout>
 </metadata>
