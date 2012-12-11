@@ -1,33 +1,24 @@
 <?php
-// Den direkten Aufruf verbieten
+// Den direkten Aufruf verbieten.
 defined('_JEXEC') or die;
 
-// Die Joomla! Viewbibliothek importieren
-jimport('joomla.application.component.view');
-
 /**
- * HTML View class for the HalloWelt Component
+ * HTML View Klasse für die HalloWelt Komponente
  */
-class HalloWeltViewHalloWelt extends JView
+class HalloWeltViewHalloWelt extends JViewLegacy
 {
-    // Die JView display Methode wird überschrieben
-    function display($tpl = null)
+	/**
+	 * @var string
+	 */
+	protected $hallo = '';
+
+	// Die JView display Methode wird überschrieben.
+    public function display($tpl = null)
     {
-        // Die Daten werden dem View zugewiesen
-        $this->msg = 'Hallo Welt!';
+        // Die Daten werden vom Model bezogen.
+        $this->hallo = $this->get('Hallo');
 
-        $this->msg = $this->get('Msg');
-
-        // Auf Fehler prüfen.
-        $errors = $this->get('Errors');
-
-        if (count($errors))
-        {
-            JError::raiseError(500, implode('<br />', $errors));
-            return false;
-        }
-
-        // Der View wird angezeigt
+        // Der View wird angezeigt.
         parent::display($tpl);
     }
 }

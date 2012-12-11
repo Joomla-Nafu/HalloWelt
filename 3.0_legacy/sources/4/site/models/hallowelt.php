@@ -2,28 +2,26 @@
 // Den direkten Aufruf verbieten
 defined('_JEXEC') or die;
 
-// Die Joomla! Modelitem Klasse importieren
-jimport('joomla.application.component.modelitem');
-
-// Diese Klasse erweitert die JModelitem Klasse
+// Diese Klasse erweitert die JModelitem Klasse.
 class HalloWeltModelHalloWelt extends JModelItem
 {
     /**
-     * @var string msg
+     * @var string
      */
-    protected $msg;
+    protected $hallo = '';
 
     /**
-     * Get the message.
-     * @return string The message to be displayed to the user
+     * Gibt ein "Hallo" zurück.
+     *
+     * @return string
      */
-    public function getMsg()
+    public function getHallo()
     {
-        if( ! isset($this->msg))
+        if('' == $this->hallo)
         {
-            $this->msg = 'Hallo Welt !';
+            $this->hallo = 'Hallo Welt !';
         }
 
-        return $this->msg;
+        return $this->hallo;
     }
 }
