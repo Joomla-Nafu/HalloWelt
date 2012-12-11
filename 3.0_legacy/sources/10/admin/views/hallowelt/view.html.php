@@ -2,19 +2,28 @@
 // Den direkten Aufruf verbieten
 defined('_JEXEC') or die;
 
-// Die Joomla! View Bibliothek importieren
-jimport('joomla.application.component.view');
-
 /**
  * HalloWelt View
  */
-class HalloWeltViewHalloWelt extends JView
+class HalloWeltViewHalloWelt extends JViewLegacy
 {
-    /**
-     * Display method of HalloWelt view.
-     *
-     * @return void
-     */
+	/**
+	 * @var stdClass
+	 */
+	protected $item;
+
+	/**
+	 * @var JForm
+	 */
+	protected $form;
+
+	/**
+	 * Display method of HalloWelt view.
+	 *
+	 * @param null $tpl
+	 *
+	 * @return void
+	 */
     public function display($tpl = null)
     {
         // Die Daten werden bezogen
@@ -22,16 +31,6 @@ class HalloWeltViewHalloWelt extends JView
 
         // Das Formular
         $this->form = $this->get('Form');
-
-        // Auf Fehler prüfen
-        $errors = $this->get('Errors');
-
-        if (count($errors))
-        {
-            JError::raiseError(500, implode('<br />', $errors));
-
-            return false;
-        }
 
         // Die Toolbar hinzufügen
         $this->addToolBar();
@@ -48,7 +47,7 @@ class HalloWeltViewHalloWelt extends JView
      */
     protected function addToolBar()
     {
-        JRequest::setVar('hidemainmenu', true);
+        JFactory::getApplication()->input->set('hidemainmenu', true);
 
         $isNew = ($this->item->id == 0);
 
