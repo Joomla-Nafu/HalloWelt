@@ -13,7 +13,7 @@ $actionLink = JRoute::_('index.php?option=com_hallowelt&layout=edit&id='.(int) $
 
 ?>
 <form action="<?php echo $actionLink; ?>" method="post"
-	name="adminForm" id="hallowelt-form"
+	name="adminForm" id="adminForm"
 	class="form-validate">
 
 	<fieldset class="adminform">

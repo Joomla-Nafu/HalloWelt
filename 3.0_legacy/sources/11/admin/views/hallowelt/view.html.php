@@ -2,13 +2,10 @@
 // Den direkten Aufruf verbieten
 defined('_JEXEC') or die;
 
-// Die Joomla! View Bibliothek importieren
-jimport('joomla.application.component.view');
-
 /**
  * HalloWelt View.
  */
-class HalloWeltViewHalloWelt extends JView
+class HalloWeltViewHalloWelt extends JViewLegacy
 {
     /**
      * Display method of HalloWelt view
@@ -25,16 +22,6 @@ class HalloWeltViewHalloWelt extends JView
 
         // JavaScript
         $this->script = $this->get('Script');
-
-        // Auf Fehler prüfen
-        $errors = $this->get('Errors');
-
-        if (count($errors))
-        {
-            JError::raiseError(500, implode('<br />', $errors));
-
-            return false;
-        }
 
         // Die Toolbar hinzufügen
         $this->addToolBar();
