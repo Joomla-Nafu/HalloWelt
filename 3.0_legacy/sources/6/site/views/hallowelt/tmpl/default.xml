@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+ 
+    <layout title="COM_HALLOWELT_HALLOWELT_VIEW_DEFAULT_TITLE">
+        <message>COM_HALLOWELT_HALLOWELT_VIEW_DEFAULT_DESC</message>
+    </layout>
+ 
+    <fields name="request"
+        addfieldpath="/administrator/components/com_hallowelt/models/fields">
+ 
+        <fieldset name="request">
+            <field name="id" 
+                type="hallowelt"
+                label="COM_HALLOWELT_HALLOWELT_FIELD_GREETING_LABEL" 
+                description="COM_HALLOWELT_HALLOWELT_FIELD_GREETING_DESC">
+            </field>
+        </fieldset>
+ 
+    </fields>
+</metadata>

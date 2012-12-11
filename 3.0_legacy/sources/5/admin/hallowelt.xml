@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<extension type="component" version="1.6.0" method="upgrade">
+
+    <name>Hallo Welt !</name>
+    <creationDate>Erstellungsdatum</creationDate>
+    <author>Max Mustermann</author>
+    <authorEmail>max.mustermann@example.org</authorEmail>
+    <authorUrl>http://www.example.org</authorUrl>
+    <copyright>Copyright Info</copyright>
+    <license>Lizenz Info</license>
+    <version>0.0.5</version>
+    <description>Beschreibung der Komponente</description>
+
+    <update>
+        <schemas>
+            <schemapath type="mysql">sql/updates/mysql</schemapath>
+        </schemas>
+    </update>
+
+    <files folder="site">
+        <folder>models</folder>
+        <folder>views</folder>
+ 
+        <filename>hallowelt.php</filename>
+        <filename>controller.php</filename>
+    </files>
+ 
+    <administration>
+        <menu>Hallo Welt !</menu>
+ 
+        <files folder="admin">
+            <folder>sql</folder>
+
+            <filename>hallowelt.php</filename>
+        </files>        
+    </administration>
+</extension>

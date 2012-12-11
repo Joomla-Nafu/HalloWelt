@@ -1,0 +1,21 @@
+### ADMIN
+6/admin/models/fields/hallowelt.php
+
+1/admin/sql/updates/mysql/0.0.1.sql
+6/admin/sql/updates/mysql/0.0.6.sql
+6/admin/sql/install.mysql.utf8.sql
+6/admin/sql/uninstall.mysql.utf8.sql
+
+6/admin/tables/hallowelt.php
+
+1/admin/hallowelt.php
+
+### SITE
+6/site/models/hallowelt.php
+
+2/site/views/hallowelt/tmpl/default.php
+6/site/views/hallowelt/tmpl/default.xml
+4/site/views/hallowelt/view.html.php
+
+2/site/hallowelt.php
+2/site/controller.php
