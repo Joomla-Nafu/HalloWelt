@@ -13,9 +13,7 @@ class HalloWeltTableHalloWelt extends JTable
     /**
      * Constructor.
      *
-     * @param	string Name of the table to model.
-     * @param	string Name of the primary key field in the table.
-     * @param	object JDatabase connector object.
+     * @param	JDatabase  &$db  JDatabase connector object.
      */
     function __construct(&$db)
     {

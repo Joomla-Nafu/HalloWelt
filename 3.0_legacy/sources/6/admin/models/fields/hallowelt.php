@@ -31,7 +31,7 @@ class JFormFieldHalloWelt extends JFormFieldList
         $query = $db->getQuery(true);
 
         $query->from('#__hallowelt');
-        $query->select('id, greeting');
+        $query->select('id, hallo');
 
         $db->setQuery((string)$query);
 
@@ -43,7 +43,7 @@ class JFormFieldHalloWelt extends JFormFieldList
         {
             foreach($messages as $message)
             {
-                $options[] = JHtml::_('select.option', $message->id, $message->greeting);
+                $options[] = JHtml::_('select.option', $message->id, $message->hallo);
             }
         }
 

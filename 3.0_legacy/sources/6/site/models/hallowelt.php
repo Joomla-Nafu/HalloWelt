@@ -11,9 +11,9 @@ jimport('joomla.application.component.modelitem');
 class HalloWeltModelHalloWelt extends JModelItem
 {
     /**
-     * @var string msg
+     * @var string
      */
-    protected $msg;
+    protected $hallo = '';
 
     /**
      * Returns a reference to the a Table object, always creating it.
@@ -34,11 +34,11 @@ class HalloWeltModelHalloWelt extends JModelItem
      *
      * @return string The message to be displayed to the user
      */
-    public function getMsg()
+    public function getHallo()
     {
-        if ( ! isset($this->msg))
+        if ('' == $this->hallo)
         {
-            $id = JRequest::getInt('id');
+            $id = JFactory::getApplication()->input->getInt('id');
 
             // Eine Instanz der HalloWelt Tabelle beziehen
             $table = $this->getTable();
@@ -47,16 +47,16 @@ class HalloWeltModelHalloWelt extends JModelItem
             $table->load($id);
 
             // Die Nachricht weitergeben wenn ein Datensatz gefunden wurde
-            if($table->greeting)
+            if($table->hallo)
             {
-                $this->msg = $table->greeting;
+                $this->hallo = $table->hallo;
             }
             else
             {
-                $this->msg = JText::_('COM_HALLOWELT_UNDEFINED_MESSAGE');
+                $this->hallo = JText::_('COM_HALLOWELT_UNDEFINED_MESSAGE');
             }
         }
 
-        return $this->msg;
+        return $this->hallo;
     }
 }
