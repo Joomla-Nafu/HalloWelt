@@ -8,8 +8,8 @@ JHtml::_('behavior.tooltip');
 $actionLink =  JRoute::_('index.php?option=com_hallowelt');
 
 ?>
-<form action="<?php echo $actionLink; ?>" method="post" name="adminForm">
-    <table class="adminlist">
+<form action="<?php echo $actionLink; ?>" method="post" name="adminForm" id="adminForm">
+    <table class="table table-bordered table-striped table-hover">
         <thead><?php echo $this->loadTemplate('head');?></thead>
         <tfoot><?php echo $this->loadTemplate('foot');?></tfoot>
         <tbody><?php echo $this->loadTemplate('body');?></tbody>

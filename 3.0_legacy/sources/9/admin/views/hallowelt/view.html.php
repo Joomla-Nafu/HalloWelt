@@ -1,50 +1,51 @@
 <?php
-// Den direkten Aufruf verbieten
+
+// Den direkten Aufruf verbieten.
 defined('_JEXEC') or die;
 
-// Die Joomla! View Bibliothek importieren
-jimport('joomla.application.component.view');
-
 /**
- * HalloWelt View
+ * HalloWelt View.
  */
-class HalloWeltViewHalloWelt extends JView
+class HalloWeltViewHalloWelt extends JViewLegacy
 {
-    /**
-     * display method of HalloWelt view
-     * @return void
-     */
+	/**
+	 * @var stdClass
+	 */
+	protected $item;
+
+	/**
+	 * @var JForm
+	 */
+	protected $form;
+
+	/**
+	 * display method of HalloWelt view.
+	 *
+	 * @param null $tpl
+	 *
+	 * @return void
+	 */
     public function display($tpl = null)
     {
-        // Die Daten werden bezogen
+        // Die Daten werden bezogen.
         $this->item = $this->get('Item');
 
-        // Das Formular
+        // Das Formular.
         $this->form = $this->get('Form');
 
-        // Auf Fehler prüfen
-        $errors = $this->get('Errors');
-
-        if (count($errors))
-        {
-            JError::raiseError(500, implode('<br />', $errors));
-
-            return false;
-        }
-
-        // Die Toolbar hinzufügen
+        // Die Toolbar hinzufügen.
         $this->addToolBar();
 
-        // Das Template wird aufgerufen
+        // Das Template wird aufgerufen.
         parent::display($tpl);
     }
 
     /**
-     * Setting the toolbar
+     * Setting the toolbar.
      */
     protected function addToolBar()
     {
-        JRequest::setVar('hidemainmenu', true);
+        JFactory::getApplication()->input->set('hidemainmenu', true);
 
         $isNew = ($this->item->id == 0);
 
