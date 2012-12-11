@@ -4,9 +4,9 @@
 
     <name>Hallo Welt !</name>
     <creationDate>Erstellungsdatum</creationDate>
-    <author>Max Mustermann</author>
-    <authorEmail>max.mustermann@example.org</authorEmail>
-    <authorUrl>http://www.example.org</authorUrl>
+    <author>Joomla-Wiki.de</author>
+    <authorEmail>kontakt@joomla-wiki.de</authorEmail>
+    <authorUrl>http://www.joomla-wiki.de</authorUrl>
     <copyright>Copyright Info</copyright>
     <license>Lizenz Info</license>
     <version>0.0.7</version>
@@ -17,7 +17,7 @@
             <file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
         </sql>
     </install>
- 
+
     <uninstall>
         <sql>
             <file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
@@ -33,14 +33,14 @@
     <files folder="site">
         <folder>models</folder>
         <folder>views</folder>
- 
+
         <filename>controller.php</filename>
         <filename>hallowelt.php</filename>
     </files>
- 
+
     <administration>
         <menu>Hallo Welt !</menu>
- 
+
         <files folder="admin">
             <folder>models</folder>
             <folder>sql</folder>
@@ -49,6 +49,6 @@
 
             <filename>controller.php</filename>
             <filename>hallowelt.php</filename>
-        </files>        
+        </files>
     </administration>
 </extension>
