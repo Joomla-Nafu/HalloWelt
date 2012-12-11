@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<extension type="component" version="1.6.0" method="upgrade">
+<extension type="component" version="3.0" method="upgrade">
 
     <name>Hallo Welt !</name>
     <creationDate>Erstellungsdatum</creationDate>
