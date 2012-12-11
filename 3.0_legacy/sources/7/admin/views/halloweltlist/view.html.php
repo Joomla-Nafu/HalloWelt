@@ -1,39 +1,41 @@
 <?php
-// Den direkten Aufruf verbieten
-defined('_JEXEC') or die;
 
-// Die Joomla! Viewbibliothek importieren
-jimport('joomla.application.component.view');
+// Den direkten Aufruf verbieten.
+defined('_JEXEC') or die;
 
 /**
  * HalloWeltList HTML View
  */
-class HalloWeltViewHalloWeltList extends JView
+class HalloWeltViewHalloWeltList extends JViewLegacy
 {
-    /**
-     * HalloWeltList view display method
-     *
-     * @return void
-     */
-    function display($tpl = null)
-    {
-        // Die Daten werden vom Model bezogen
-        $this->items = $this->get('Items');
+	/**
+	 * @var array
+	 */
+	protected $items = array();
 
-        // Ein JPagination Objekt beziehen
-        $this->pagination = $this->get('Pagination');
+	/**
+	 * @var JPagination
+	 */
+	protected $pagination;
 
-        // Auf Fehler prüfen
-        $errors = $this->get('Errors');
+	/**
+	 * HalloWeltList view display method
+	 *
+	 * @param null $tpl
+	 *
+	 * @return void
+	 */
+	function display($tpl = null)
+	{
+		JToolbarHelper::title('Hallo Welt !');
 
-        if (count($errors))
-        {
-            JError::raiseError(500, implode('<br />', $errors));
+		// Die Daten werden vom Model bezogen
+		$this->items = $this->get('Items');
 
-            return false;
-        }
+		// Ein JPagination Objekt beziehen
+		$this->pagination = $this->get('Pagination');
 
-        // Das Template wird aufgerufen
-        parent::display($tpl);
-    }
+		// Das Template wird aufgerufen
+		parent::display($tpl);
+	}
 }

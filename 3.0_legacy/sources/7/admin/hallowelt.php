@@ -1,15 +1,18 @@
 <?php
-// Den direkten Aufruf verbieten
+
+// Den direkten Aufruf verbieten.
 defined('_JEXEC') or die;
 
-// Die Joomla! Controllerbibliothek importieren
+// Die Joomla! Controllerbibliothek importieren.
 jimport('joomla.application.component.controller');
 
-// Eine Instanz des Controllers mit dem Präfix 'HalloWelt' beziehen
-$controller = JController::getInstance('HalloWelt');
+// Eine Instanz des Controllers mit dem Präfix 'HalloWelt' beziehen.
+$controller = JControllerLegacy::getInstance('HalloWelt');
 
-// Den 'task' der im Request übergeben wurde ausführen
-$controller->execute(JRequest::getCmd('task'));
+$task = JFactory::getApplication()->input->getCmd('task');
 
-// Einen Redirect durchführen wenn er im Controller gesetzt ist
+// Den 'task' der im Request übergeben wurde ausführen.
+$controller->execute($task);
+
+// Einen Redirect durchführen wenn er im Controller gesetzt wurde.
 $controller->redirect();

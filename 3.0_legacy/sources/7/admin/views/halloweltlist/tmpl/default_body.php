@@ -4,7 +4,7 @@ defined('_JEXEC') or die;
 ?>
 
 <?php foreach($this->items as $i => $item): ?>
-    <tr class="row<?php echo $i % 2; ?>">
+    <tr>
         <td>
             <?php echo $item->id; ?>
         </td>
@@ -12,7 +12,7 @@ defined('_JEXEC') or die;
             <?php echo JHtml::_('grid.id', $i, $item->id); ?>
         </td>
         <td>
-            <?php echo $item->greeting; ?>
+            <?php echo $item->hallo; ?>
         </td>
     </tr>
 <?php endforeach; ?>

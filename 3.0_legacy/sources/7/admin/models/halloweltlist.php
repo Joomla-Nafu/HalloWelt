@@ -28,7 +28,7 @@ class HalloWeltModelHalloWeltList extends JModelList
         $query->from('#__hallowelt');
 
         // ... ein paar Felder auswählen.
-        $query->select('id, greeting');
+        $query->select('id, hallo');
 
         return $query;
     }
