@@ -11,13 +11,13 @@ class HalloWeltViewHalloWelt extends JViewLegacy
 	/**
 	 * @var string
 	 */
-	protected $message = '';
+	protected $hallo = '';
 
 	// Die JViewLegacy::display() Methode wird überschrieben
-	function display($tpl = null)
+	public function display($tpl = null)
 	{
 		// Die Daten werden dem View zugewiesen
-		$this->msg = 'Hallo Welt!';
+		$this->hallo = 'Hallo Welt!';
 
 		// Der View wird angezeigt
 		parent::display($tpl);
