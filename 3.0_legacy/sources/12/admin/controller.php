@@ -2,19 +2,19 @@
 // Den direkten Aufruf verbieten
 defined('_JEXEC') or die;
 
-// Die Joomla! Controllerbibliothek importieren
-jimport('joomla.application.component.controllerx');
-
 /**
- * Allgemeiner Controller der HalloWelt Komponente
+ * Allgemeiner Controller der HalloWelt Komponente.
  */
-class HalloWeltController extends JController
+class HalloWeltController extends JControllerLegacy
 {
-    /**
-     * display task
-     *
-     * @return void
-     */
+	/**
+	 * Display task.
+	 *
+	 * @param bool $cachable
+	 * @param bool $urlparams
+	 *
+	 * @return void
+	 */
     function display($cachable = false, $urlparams = false)
     {
         // Der Standardview wird gesetzt

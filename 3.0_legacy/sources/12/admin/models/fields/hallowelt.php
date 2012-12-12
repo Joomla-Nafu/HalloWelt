@@ -31,7 +31,7 @@ class JFormFieldHalloWelt extends JFormFieldList
         $query = $db->getQuery(true);
 
         $query->from('#__hallowelt AS h');
-        $query->select('h.id AS id, h.greeting, h.catid, c.title AS category');
+        $query->select('h.id AS id, h.hallo, h.catid, c.title AS category');
         $query->leftJoin('#__categories AS c on h.catid=c.id');
 
         $db->setQuery((string)$query);
