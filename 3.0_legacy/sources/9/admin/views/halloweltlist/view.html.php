@@ -18,10 +18,12 @@ class HalloWeltViewHalloWeltList extends JViewLegacy
 	protected $pagination;
 
 	/**
-     * HalloWeltList view display method
-     *
-     * @return void
-     */
+	 * HalloWeltList view display method
+	 *
+	 * @param null $tpl
+	 *
+	 * @return void
+	 */
     function display($tpl = null)
     {
         // Die Daten werden vom Model bezogen

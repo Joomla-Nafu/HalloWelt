@@ -69,7 +69,7 @@ class HalloWeltModelHalloWelt extends JModelItem
 
             $this->_db->setQuery($this->_db->getQuery(true)
             ->from('#__hallowelt as h')
-            ->select('h.greeting, h.params, c.title as category')
+            ->select('h.hallo, h.params, c.title as category')
             ->leftJoin('#__categories as c ON h.catid=c.id')
             ->where('h.id='.(int)$id));
 
@@ -80,8 +80,8 @@ class HalloWeltModelHalloWelt extends JModelItem
             else
             {
                 // Load the JSON string
-                $params = new JRegistry;
-                $params->loadJSON($this->item->params);
+                $params = new JRegistry($this->item->params);
+
                 $this->item->params = $params;
 
                 // Merge global params with item params
