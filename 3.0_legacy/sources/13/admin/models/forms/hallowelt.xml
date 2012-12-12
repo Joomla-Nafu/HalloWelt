@@ -2,15 +2,15 @@
 <form addrulepath="/administrator/components/com_hallowelt/models/rules">
     <fieldset name="details">
         <field name="id" type="hidden" />
- 
-        <field name="greeting" type="text" size="40"
+
+        <field name="hallo" type="text" size="40"
             class="inputbox validate-greeting"
             validate="greeting"
             required="true"
             default=""
             label="COM_HALLOWELT_HALLOWELT_FIELD_GREETING_LABEL"
             description="COM_HALLOWELT_HALLOWELT_FIELD_GREETING_DESC" />
- 
+
         <field name="catid" type="category"
             extension="com_hallowelt"
             class="inputbox"
@@ -18,23 +18,23 @@
             required="true"
             label="COM_HALLOWELT_HALLOWELT_FIELD_CATID_LABEL"
             description="COM_HALLOWELT_HALLOWELT_FIELD_CATID_DESC">
- 
+
             <option value="0">JOPTION_SELECT_CATEGORY</option>
         </field>
     </fieldset>
- 
+
     <fields name="params">
         <fieldset
             name="params"
             label="JGLOBAL_FIELDSET_DISPLAY_OPTIONS">
- 
+
             <field
                 name="show_category"
                 type="list"
                 label="COM_HALLOWELT_HALLOWELT_FIELD_SHOW_CATEGORY_LABEL"
                 description="COM_HALLOWELT_HALLOWELT_FIELD_SHOW_CATEGORY_DESC"
                 default="">
- 
+
                 <option value="">JGLOBAL_USE_GLOBAL</option>
                 <option value="0">JHIDE</option>
                 <option value="1">JSHOW</option>

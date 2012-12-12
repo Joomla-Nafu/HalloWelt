@@ -8,13 +8,25 @@ jimport('joomla.application.component.view');
 /**
  * HalloWeltList HTML View
  */
-class HalloWeltViewHalloWeltList extends JView
+class HalloWeltViewHalloWeltList extends JViewLegacy
 {
-    /**
-     * HalloWeltList view display method
-     *
-     * @return void
-     */
+	/**
+	 * @var array
+	 */
+	protected $items = array();
+
+	/**
+	 * @var JPagination
+	 */
+	protected $pagination;
+
+	/**
+	 * HalloWeltList view display method
+	 *
+	 * @param null $tpl
+	 *
+	 * @return void
+	 */
     function display($tpl = null)
     {
         // Die Daten werden vom Model bezogen
@@ -25,16 +37,6 @@ class HalloWeltViewHalloWeltList extends JView
 
         // Die Toolbar hinzufügen
         $this->addToolBar();
-
-        // Auf Fehler prüfen
-        $errors = $this->get('Errors');
-
-        if (count($errors))
-        {
-            JError::raiseError(500, implode('<br />', $errors));
-
-            return false;
-        }
 
         // Das Template wird aufgerufen
         parent::display($tpl);
