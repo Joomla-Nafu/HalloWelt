@@ -1,4 +1,5 @@
 <?php
+
 // Den direkten Aufruf verbieten
 defined('_JEXEC') or die;
 
@@ -15,15 +16,15 @@ class HalloWeltController extends JControllerLegacy
 	 *
 	 * @return void
 	 */
-    function display($cachable = false, $urlparams = false)
-    {
-        // Der Standardview wird gesetzt
-        JRequest::setVar('view', JRequest::getCmd('view', 'HalloWeltList'));
+	function display($cachable = false, $urlparams = false)
+	{
+		// Der Standardview wird gesetzt
+		JRequest::setVar('view', JRequest::getCmd('view', 'HalloWeltList'));
 
-        // Die displaymethode der Elternklasse aufrufen
-        parent::display($cachable, $urlparams);
+		// Die displaymethode der Elternklasse aufrufen
+		parent::display($cachable, $urlparams);
 
-        // Das Submenü generieren
-        HalloWeltHelper::addSubmenu('messages');
-    }
+		// Das Submenü generieren
+		HalloWeltHelper::addSubmenu('messages');
+	}
 }

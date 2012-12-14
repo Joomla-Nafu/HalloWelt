@@ -1,4 +1,5 @@
 <?php
+
 // Den direkten Aufruf verbieten
 defined('_JEXEC') or die;
 
@@ -10,10 +11,10 @@ jimport('joomla.form.formrule');
  */
 class JFormRuleGreeting extends JFormRule
 {
-    /**
-     * The regular expression.
-     *
-     * @var         string
-     */
-    protected $regex = '^[^0-9]+$';
+	/**
+	 * The regular expression.
+	 *
+	 * @var         string
+	 */
+	protected $regex = '^[^0-9]+$';
 }

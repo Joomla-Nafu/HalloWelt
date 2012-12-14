@@ -12,43 +12,43 @@ JFormHelper::loadFieldClass('list');
  */
 class JFormFieldHalloWelt extends JFormFieldList
 {
-    /**
-     * The field type.
-     *
-     * @var string
-     */
-    protected $type = 'HalloWelt';
+	/**
+	 * The field type.
+	 *
+	 * @var string
+	 */
+	protected $type = 'HalloWelt';
 
-    /**
-     * Method to get a list of options for a list input.
-     *
-     * @return array An array of JHtml options.
-     */
-    protected function getOptions()
-    {
-        $db = JFactory::getDBO();
+	/**
+	 * Method to get a list of options for a list input.
+	 *
+	 * @return array An array of JHtml options.
+	 */
+	protected function getOptions()
+	{
+		$db = JFactory::getDBO();
 
-        $query = $db->getQuery(true);
+		$query = $db->getQuery(true);
 
-        $query->from('#__hallowelt');
-        $query->select('id, hallo');
+		$query->from('#__hallowelt');
+		$query->select('id, hallo');
 
-        $db->setQuery((string)$query);
+		$db->setQuery((string) $query);
 
-        $messages = $db->loadObjectList();
+		$messages = $db->loadObjectList();
 
-        $options = array();
+		$options = array();
 
-        if ($messages)
-        {
-            foreach($messages as $message)
-            {
-                $options[] = JHtml::_('select.option', $message->id, $message->hallo);
-            }
-        }
+		if ($messages)
+		{
+			foreach ($messages as $message)
+			{
+				$options[] = JHtml::_('select.option', $message->id, $message->hallo);
+			}
+		}
 
-        $options = array_merge(parent::getOptions(), $options);
+		$options = array_merge(parent::getOptions(), $options);
 
-        return $options;
-    }
+		return $options;
+	}
 }

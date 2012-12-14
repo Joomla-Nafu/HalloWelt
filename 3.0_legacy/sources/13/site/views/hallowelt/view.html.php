@@ -1,4 +1,5 @@
 <?php
+
 // Den direkten Aufruf verbieten
 defined('_JEXEC') or die;
 
@@ -10,13 +11,13 @@ jimport('joomla.application.component.view');
  */
 class HalloWeltViewHalloWelt extends JViewLegacy
 {
-    // Die JView display Methode wird überschrieben
-    function display($tpl = null)
-    {
-        // Die Daten werden vom Model bezogen
-        $this->item = $this->get('Item');
+	// Die JView display Methode wird überschrieben
+	function display($tpl = null)
+	{
+		// Die Daten werden vom Model bezogen
+		$this->item = $this->get('Item');
 
-        // Der View wird angezeigt
-        parent::display($tpl);
-    }
+		// Der View wird angezeigt
+		parent::display($tpl);
+	}
 }

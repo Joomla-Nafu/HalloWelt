@@ -1,4 +1,5 @@
 <?php
+
 // Den direkten Aufruf verbieten
 defined('_JEXEC') or die;
 
@@ -11,11 +12,11 @@ jimport('joomla.application.component.controlleradmin');
 class HalloWeltControllerHalloWeltList extends JControllerAdmin
 {
 
-    /**
-     * Proxy for getModel.
-     */
-    public function getModel($name = 'HalloWelt', $prefix = 'HalloWeltModel', $config = array('ignore_request' => true))
-    {
-        return parent::getModel($name, $prefix, $config);
-    }
+	/**
+	 * Proxy for getModel.
+	 */
+	public function getModel($name = 'HalloWelt', $prefix = 'HalloWeltModel', $config = array('ignore_request' => true))
+	{
+		return parent::getModel($name, $prefix, $config);
+	}
 }

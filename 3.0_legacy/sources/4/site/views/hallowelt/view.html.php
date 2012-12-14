@@ -13,12 +13,12 @@ class HalloWeltViewHalloWelt extends JViewLegacy
 	protected $hallo = '';
 
 	// Die JView display Methode wird überschrieben.
-    public function display($tpl = null)
-    {
-        // Die Daten werden vom Model bezogen.
-        $this->hallo = $this->get('Hallo');
+	public function display($tpl = null)
+	{
+		// Die Daten werden vom Model bezogen.
+		$this->hallo = $this->get('Hallo');
 
-        // Der View wird angezeigt.
-        parent::display($tpl);
-    }
+		// Der View wird angezeigt.
+		parent::display($tpl);
+	}
 }

@@ -4,7 +4,7 @@
 defined('_JEXEC') or die;
 
 // Die Helperdatei registrieren.
-JLoader::register('HalloWeltHelper', JPATH_COMPONENT.'/helpers/hallowelt.php');
+JLoader::register('HalloWeltHelper', JPATH_COMPONENT . '/helpers/hallowelt.php');
 
 // Eine Instanz des Controllers mit dem Präfix 'HalloWelt' beziehen.
 $controller = JControllerLegacy::getInstance('HalloWelt');

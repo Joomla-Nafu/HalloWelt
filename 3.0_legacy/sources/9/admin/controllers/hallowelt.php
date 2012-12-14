@@ -1,4 +1,5 @@
 <?php
+
 // Den direkten Aufruf verbieten
 defined('_JEXEC') or die;
 
@@ -10,12 +11,12 @@ jimport('joomla.application.component.controllerform');
  */
 class HalloWeltControllerHalloWelt extends JControllerForm
 {
-    /**
-     * !!!
-     * Da unser Namensschema nicht den Pluralisierungsregeln entspricht
-     * müssen wir hier den Namen des List Views angeben.
-     *
-     * @var string
-     */
-    protected $view_list = 'HalloWeltList';
+	/**
+	 * !!!
+	 * Da unser Namensschema nicht den Pluralisierungsregeln entspricht
+	 * müssen wir hier den Namen des List Views angeben.
+	 *
+	 * @var string
+	 */
+	protected $view_list = 'HalloWeltList';
 }

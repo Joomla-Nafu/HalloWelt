@@ -1,4 +1,5 @@
 <?php
+
 // Den direkten Aufruf verbieten
 defined('_JEXEC') or die;
 
@@ -9,28 +10,28 @@ JHtml::_('behavior.tooltip');
 JHtml::_('behavior.formvalidation');
 
 // Der Link für das Formular
-$actionLink = JRoute::_('index.php?option=com_hallowelt&layout=edit&id='.(int) $this->item->id);
+$actionLink = JRoute::_('index.php?option=com_hallowelt&layout=edit&id=' . (int) $this->item->id);
 
 ?>
 <form action="<?php echo $actionLink; ?>" method="post"
-	name="adminForm" id="adminForm"
-	class="form-validate">
+      name="adminForm" id="adminForm"
+      class="form-validate">
 
 	<fieldset class="adminform">
-        <legend><?php echo JText::_('COM_HALLOWELT_HALLOWELT_DETAILS'); ?></legend>
+		<legend><?php echo JText::_('COM_HALLOWELT_HALLOWELT_DETAILS'); ?></legend>
 
-        <?php foreach($this->form->getFieldset() as $field): ?>
-            <?php if (!$field->hidden): ?>
-                <?php echo $field->label; ?>
-            <?php endif; ?>
+		<?php foreach ($this->form->getFieldset() as $field): ?>
+			<?php if (!$field->hidden): ?>
+				<?php echo $field->label; ?>
+			<?php endif; ?>
 
-            <?php echo $field->input; ?>
-        <?php endforeach; ?>
+			<?php echo $field->input; ?>
+		<?php endforeach; ?>
 
-    </fieldset>
+	</fieldset>
 
-    <div>
-        <input type="hidden" name="task" value="hallowelt.edit" />
-        <?php echo JHtml::_('form.token'); ?>
-    </div>
+	<div>
+		<input type="hidden" name="task" value="hallowelt.edit"/>
+		<?php echo JHtml::_('form.token'); ?>
+	</div>
 </form>
